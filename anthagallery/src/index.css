@@ -12,6 +12,11 @@ code {
     monospace;
 }
 
+@font-face {
+  font-family: 'Axiforma';
+  src: local('Axiforma'), url(./fonts/Axiforma-Regular.ttf) format('truetype');
+}
+
 .swiper-button-next:after {
   padding-top: 50px;
   padding-right: 50px;

@@ -20,7 +20,8 @@ function Navbar() {
                     width: '100%',
                     maxWidth: '1440px',
                     // position: 'fixed',
-                    backgroundColor: 'grey',
+                    boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15)',
+                    backgroundColor: 'white',
                     height: '116px'
                 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', maxWidth: '1440px', px: '100px' }}>
