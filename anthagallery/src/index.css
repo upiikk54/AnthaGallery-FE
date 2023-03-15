@@ -16,6 +16,19 @@ code {
   font-family: 'Axiforma';
   src: local('Axiforma'), url(./fonts/Axiforma-Regular.ttf) format('truetype');
 }
+@media screen and (max-width: 1439px){
+  .swiper-button-next:after {
+    padding-top: 5px !important;
+    padding-right: 50px;
+    color: white;
+  }
+
+  .swiper-button-prev:after {
+    padding-left: 50px;
+    padding-top: 5px !important;
+    color: white;
+  }
+}
 
 .swiper-button-next:after {
   padding-top: 50px;

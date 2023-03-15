@@ -12,7 +12,7 @@ function Navbar() {
         <>
             <Box sx={{
                 display: 'flex',
-                justifyContent: 'center', 
+                justifyContent: 'center',
                 alignItems: 'center',
             }}>
                 <Box sx={{
@@ -27,11 +27,11 @@ function Navbar() {
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', maxWidth: '1440px', px: '100px' }}>
                         <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                             <Box sx={{ display: 'flex' }}>
-                                <Box sx={{ maxWidth: '50px', width: '100%', borderRadius: '50%' }} component={'img'} src={Logo} />
+                                <Box sx={{ maxWidth: { md: '35px', xl: '50px' }, width: '100%', borderRadius: '50%' }} component={'img'} src={Logo} />
                             </Box>
                             <Box sx={{ display: 'flex' }}>
-                                <Typography sx={{ color: '#FFD12D', fontSize: '24px', fontWeight: '39px', lineHeight: '39px', fontFamily: 'Axiforma' }}>Antha</Typography>
-                                <Typography sx={{ color: 'black', fontSize: '24px', fontWeight: '39px', lineHeight: '39px', fontFamily: 'Axiforma' }}>Gallery</Typography>
+                                <Typography sx={{ color: '#FFD12D', fontSize: { md: '20px', xl: '24px' }, fontWeight: '39px', lineHeight: '39px', fontFamily: 'Axiforma' }}>Antha</Typography>
+                                <Typography sx={{ color: 'black', fontSize: { md: '20px', xl: '24px' }, fontWeight: '39px', lineHeight: '39px', fontFamily: 'Axiforma' }}>Gallery</Typography>
                             </Box>
                         </Box>
                         <Box sx={{ display: 'flex', gap: '28px' }}>
