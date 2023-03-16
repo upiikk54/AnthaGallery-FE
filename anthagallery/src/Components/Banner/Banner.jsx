@@ -11,8 +11,8 @@ function Banner() {
                 alignItems: 'center',
             }}>
                 <Box sx={{ height: '256px', maxWidth: '1440px', width: '100%', backgroundImage: `url(${banner})` }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'center'}}>
-                        <Typography sx={{ fontWeight: 600, fontSize: '64px', color: 'white', pt: '90px'}}>Backpack</Typography>
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <Typography sx={{ fontWeight: 600, fontSize: {xs: '44px', sm: '41px', md: '54px', xl: '64px' }, color: 'white', pt: '90px' }}>Backpack</Typography>
                     </Box>
                 </Box>
             </Box>

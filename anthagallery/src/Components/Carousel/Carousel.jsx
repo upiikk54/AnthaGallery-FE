@@ -13,14 +13,14 @@ function Carousel() {
         <>
             {/* <MainContainer> */}
                 <Swiper
-                    modules={[Navigation, Pagination]}
+                    modules={[Navigation, Pagination, Autoplay]}
                     pagination={true}
                     navigation={true}
                     slidesPerView={1}
-                    // autoplay={{
-                    //     delay: 2500,
-                    //     disableOnInteraction: false,
-                    // }}
+                    autoplay={{
+                        delay: 2500,
+                        disableOnInteraction: false,
+                    }}
                     style={{ maxWidth:'1440px' }}
                     loop={true}
                 >
