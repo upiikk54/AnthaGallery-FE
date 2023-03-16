@@ -3,11 +3,11 @@ import { Box, Button, Typography } from '@mui/material'
 import Logo from '../../Assets/LogoCompany/AnthaGallery.jpeg'
 
 function Navbar() {
-    const [scrolls, setScrolls] = React.useState(false)
-    const scrolled = () => {
-        window.scrollY >= 1 ? setScrolls(true) : setScrolls(false)
-    }
-    window.addEventListener('scroll', scrolled)
+    // const [scrolls, setScrolls] = React.useState(false)
+    // const scrolled = () => {
+    //     window.scrollY >= 1 ? setScrolls(true) : setScrolls(false)
+    // }
+    // window.addEventListener('scroll', scrolled)
     return (
         <>
             <Box sx={{

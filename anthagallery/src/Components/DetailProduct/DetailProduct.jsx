@@ -14,7 +14,6 @@ import { useTheme } from '@mui/material/styles';
 function DetailProduct() {
     const theme = useTheme();
     const md = useMediaQuery(theme.breakpoints.up('md'));
-    const sm = useMediaQuery(theme.breakpoints.up('sm'));
     const lg = useMediaQuery(theme.breakpoints.up('lg'));
 
     return (
@@ -35,14 +34,14 @@ function DetailProduct() {
                     <Box sx={{ display: 'flex', gap: '30px', flexWrap: { xs: 'wrap', sm: 'unset' } }}>
                         <Box className='swiper-container-detailProduct'>
                             <Swiper
-                                modules={[Navigation, Pagination]}
+                                modules={[Navigation, Pagination, Autoplay]}
                                 pagination={true}
                                 navigation={true}
                                 slidesPerView={1}
-                                // autoplay={{
-                                //     delay: 2500,
-                                //     disableOnInteraction: false,
-                                // }}
+                                autoplay={{
+                                    delay: 2500,
+                                    disableOnInteraction: false,
+                                }}
                                 style={{ maxWidth: lg ? '570px' : md ? '450px' : '320px', borderRadius: '16px' }}
                                 loop={true}
                             >
