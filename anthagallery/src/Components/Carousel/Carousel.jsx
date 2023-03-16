@@ -24,14 +24,14 @@ function Carousel() {
                     style={{ maxWidth:'1440px' }}
                     loop={true}
                 >
-                    <SwiperSlide style={{ width: '100%', maxHeight: {xl: '686px', md: '600px', sm: '445px'} }}>
-                        <Box component={'img'} src={foto1} sx={{ width: '100%', height: {xl: '686px', md: '600px', sm: '445px'},  objectFit: 'cover', objectPosition: 'top'}} />
+                    <SwiperSlide style={{ width: '100%', maxHeight: {xl: '686px', md: '600px', sm: '445px', xs: '210px'} }}>
+                        <Box component={'img'} src={foto1} sx={{ width: '100%', height: {xl: '686px', md: '600px', sm: '445px', xs: '210px'},  objectFit: 'cover', objectPosition: 'top'}} />
                     </SwiperSlide>
-                    <SwiperSlide style={{ width: '100%', maxHeight: {xl: '686px', md: '600px', sm: '445px'} }}>
-                        <Box component={'img'} src={foto1} sx={{ width: '100%', height: {xl: '686px', md: '600px', sm: '445px'}, objectFit: 'cover', objectPosition: 'top' }} />
+                    <SwiperSlide style={{ width: '100%', maxHeight: {xl: '686px', md: '600px', sm: '445px', xs: '210px'} }}>
+                        <Box component={'img'} src={foto1} sx={{ width: '100%', height: {xl: '686px', md: '600px', sm: '445px', xs: '210px'}, objectFit: 'cover', objectPosition: 'top' }} />
                     </SwiperSlide>
-                    <SwiperSlide style={{ width: '100%', maxHeight: {xl: '686px', md: '600px', sm: '445px'} }}>
-                        <Box component={'img'} src={foto1} sx={{ width: '100%', height: {xl: '686px', md: '600px', sm: '445px'}, objectFit: 'cover', objectPosition: 'top' }} />
+                    <SwiperSlide style={{ width: '100%', maxHeight: {xl: '686px', md: '600px', sm: '445px', xs: '210px'} }}>
+                        <Box component={'img'} src={foto1} sx={{ width: '100%', height: {xl: '686px', md: '600px', sm: '445px', xs: '210px'}, objectFit: 'cover', objectPosition: 'top' }} />
                     </SwiperSlide>
                 </Swiper>
             {/* </MainContainer> */}
