@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Link, Typography } from '@mui/material'
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -56,7 +56,7 @@ function DetailProduct() {
                                 </SwiperSlide>
                             </Swiper>
                         </Box>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '32px', sm: '32px', md: '93px' } }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '32px', sm: '20px', md: '93px' } }}>
                             <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '8px', sm: '10px', md: '28px' } }}>
                                 <Box sx={{ display: 'flex', backgroundColor: '#E1E6E1', width: '170px', height: { xs: '29px', sm: '29px', md: '36px', xl: '46px' }, alignItems: 'center', justifyContent: 'center', borderRadius: '8px' }}>
                                     <Typography sx={{ fontWeight: 500, fontSize: { xs: '13px', sm: '13px', md: '15px' }, color: 'black', fontFamily: 'Axiforma', lineHeight: '120%' }}>Backpack Details</Typography>
@@ -67,11 +67,13 @@ function DetailProduct() {
                                     <Typography sx={{ fontWeight: 600, fontSize: { sm: '19px', md: '25px', xl: '32px' }, fontFamily: 'Axiforma' }}>Rp. 1.200K</Typography>
                                 </Box>
                             </Box>
-                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#25D366', borderRadius: '16px', maxWidth: '570px', height: { xs: '42px', sm: '42px', md: '100%', xl: '78px' } }}>
-                                <Box sx={{ display: 'flex', gap: { sm: '10px', md: '19px' }, alignItems: 'center' }}>
-                                    <Typography sx={{ fontWeight: 600, fontSize: { sm: '8px', md: '14px', xl: '24px' }, fontFamily: 'Axiforma', lineHeight: '24px', color: 'white' }}>Contact Via Whatsapp</Typography>
-                                    <Box sx={{ maxWidth: { sm: '13px', md: '21px', xl: '31px' }, cursor: 'pointer', maxHeight: { sm: '13px', md: '21px', xl: '31px' } }} component={'img'} src={whatsapp} />
-                                </Box>
+                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#25D366', borderRadius: '16px', maxWidth: '570px', height: { xs: '42px', sm: '42px', md: '100%', xl: '78px' }, cursor: 'pointer' }}>
+                                <Link target={'_blank'} rel="noopener noreferrer" href={'https://wa.me/+628blablabla?text=Hallo%20kak%20apakah%20produk%20ini%20ready%20'} sx={{ textDecoration: 'none', color: 'black' }}>
+                                    <Box sx={{ display: 'flex', gap: { sm: '10px', md: '19px' }, alignItems: 'center' }}>
+                                        <Typography sx={{ fontWeight: 600, fontSize: { sm: '8px', md: '14px', xl: '24px' }, fontFamily: 'Axiforma', lineHeight: '24px', color: 'white' }}>Contact Via Whatsapp</Typography>
+                                        <Box sx={{ maxWidth: { sm: '13px', md: '21px', xl: '31px' }, maxHeight: { sm: '13px', md: '21px', xl: '31px' } }} component={'img'} src={whatsapp} />
+                                    </Box>
+                                </Link>
                             </Box>
                         </Box>
                     </Box>
