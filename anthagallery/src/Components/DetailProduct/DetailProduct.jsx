@@ -68,7 +68,7 @@ function DetailProduct() {
                                 </Box>
                             </Box>
                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#25D366', borderRadius: '16px', maxWidth: '570px', height: { xs: '42px', sm: '42px', md: '100%', xl: '78px' }, cursor: 'pointer' }}>
-                                <Link target={'_blank'} rel="noopener noreferrer" href={'https://wa.me/+628blablabla?text=Hallo%20kak%20apakah%20produk%20ini%20ready%20'} sx={{ textDecoration: 'none', color: 'black' }}>
+                                <Link target={'_blank'} rel="noopener noreferrer" href={'https://wa.me/+6281259516461?text=Hallo%20kak%20apakah%20produk%20ini%20ready%20'} sx={{ textDecoration: 'none', color: 'black' }}>
                                     <Box sx={{ display: 'flex', gap: { sm: '10px', md: '19px' }, alignItems: 'center' }}>
                                         <Typography sx={{ fontWeight: 600, fontSize: { sm: '8px', md: '14px', xl: '24px' }, fontFamily: 'Axiforma', lineHeight: '24px', color: 'white' }}>Contact Via Whatsapp</Typography>
                                         <Box sx={{ maxWidth: { sm: '13px', md: '21px', xl: '31px' }, maxHeight: { sm: '13px', md: '21px', xl: '31px' } }} component={'img'} src={whatsapp} />
