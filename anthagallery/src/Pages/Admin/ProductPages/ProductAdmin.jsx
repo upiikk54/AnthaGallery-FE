@@ -4,16 +4,22 @@ import Dashboard from '../Dashboard';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function ProductAdmin() {
+    const navigate = useNavigate()
+    const handleAddProduct = () => {
+        navigate('/admin/product/add-product')
+    }
     return (
         <>
             <Dashboard>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: '24px', mt: '20px', width: '100%', maxWidth: '1440px' }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography sx={{ fontWeight: 600, fontSize: '20px', fontFamily: 'Axiforma' }}>Produk</Typography>
-                        <Button variant='contained' sx={{ width: '199px', height: '40px', backgroundColor: 'black', fontFamily: 'Axiforma' }}>Tambah Produk</Button>
+                        <Button onClick={handleAddProduct} variant='contained' sx={{ width: '199px', height: '40px', backgroundColor: 'black', fontFamily: 'Axiforma', ":hover": {
+                            bgcolor: "black"
+                        } }}>Tambah Produk</Button>
                     </Box>
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '24px', }}>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', border: '1px solid rgba(16, 16, 16, 0.5)', p: '20px 36px', alignItems: 'center', height: '82px' }}>
@@ -28,7 +34,7 @@ function ProductAdmin() {
                             </Box>
                             <Box className='admin-toggle' sx={{ display: 'flex', gap: '8px' }}>
                                 <Tooltip title="Edit">
-                                    <Link to={`/admin/category/update-category`} style={{ textDecoration: "none", color: "black" }}>
+                                    <Link to={`/admin/product/update-product`} style={{ textDecoration: "none", color: "black" }}>
                                         <IconButton sx={{ color: 'black' }}>
                                             <EditOutlinedIcon />
                                         </IconButton>
@@ -53,7 +59,7 @@ function ProductAdmin() {
                             </Box>
                             <Box className='admin-toggle' sx={{ display: 'flex', gap: '8px' }}>
                                 <Tooltip title="Edit">
-                                    <Link to={`/admin/category/update-category`} style={{ textDecoration: "none", color: "black" }}>
+                                    <Link to={`/admin/product/update-product`} style={{ textDecoration: "none", color: "black" }}>
                                         <IconButton sx={{ color: 'black' }}>
                                             <EditOutlinedIcon />
                                         </IconButton>
