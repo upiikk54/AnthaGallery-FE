@@ -13,22 +13,29 @@ import AddCategoryAdmin from './Pages/Admin/CategoryPages/AddCategoryAdmin';
 import UpdateCategoryAdmin from './Pages/Admin/CategoryPages/UpdateCategoryAdmin';
 import AddProductAdmin from './Pages/Admin/ProductPages/AddProductAdmin';
 import UpdateProductAdmin from './Pages/Admin/ProductPages/UpdateProductAdmin';
+import { Provider } from 'react-redux';
+import store from './Redux/store';
+import { SnackbarProvider } from 'notistack';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <ThemeProvider theme={Theme}>
+  <Provider store={store}>
     <Router>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/category" element={<CategoryProductPage />} />
-        <Route path="/detail-product" element={<DetailProductPages />} />
-        <Route path="/admin/dashboard" element={<CategoryAdmin />} />
-        <Route path="/admin/product" element={<ProductAdmin />} />
-        <Route path="/admin/dashboard/add-category" element={<AddCategoryAdmin />} />
-        <Route path="/admin/dashboard/update-category" element={<UpdateCategoryAdmin />} />
-        <Route path="/admin/product/add-product" element={<AddProductAdmin />} />
-        <Route path="/admin/product/update-product" element={<UpdateProductAdmin />} />
-      </Routes>
-    </Router>
-  </ThemeProvider>
+      <SnackbarProvider maxSnack={3}>
+        <ThemeProvider theme={Theme}>
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/category/:id" element={<CategoryProductPage />} />
+              <Route path="/detail-product/:id" element={<DetailProductPages />} />
+              <Route path="/admin/dashboard" element={<CategoryAdmin />} />
+              <Route path="/admin/product" element={<ProductAdmin />} />
+              <Route path="/admin/dashboard/add-category" element={<AddCategoryAdmin />} />
+              <Route path="/admin/dashboard/update-category" element={<UpdateCategoryAdmin />} />
+              <Route path="/admin/product/add-product" element={<AddProductAdmin />} />
+              <Route path="/admin/product/update-product" element={<UpdateProductAdmin />} />
+            </Routes>
+        </ThemeProvider>
+      </SnackbarProvider>
+      </Router>
+  </Provider>
 );

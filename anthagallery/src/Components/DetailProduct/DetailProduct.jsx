@@ -10,11 +10,22 @@ import foto1 from '../../Assets/Carousel/Carousel1.png';
 import whatsapp from '../../Assets/DetailProduct/Whatsapp.png';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProductById } from '../../Redux/slices/UserReducer';
+import { useParams } from 'react-router-dom';
 
 function DetailProduct() {
     const theme = useTheme();
     const md = useMediaQuery(theme.breakpoints.up('md'));
     const lg = useMediaQuery(theme.breakpoints.up('lg'));
+
+    const dispatch = useDispatch()
+    const { id } = useParams();
+    const dataProduct = useSelector(state => state.user.getDataProductSingle)
+    React.useEffect(() => {
+        dispatch(getProductById(id))
+    }, [])
+    console.log(dataProduct);
 
     return (
         <>
@@ -39,37 +50,35 @@ function DetailProduct() {
                                 navigation={true}
                                 slidesPerView={1}
                                 autoplay={{
-                                    delay: 2500,
+                                    delay: 2000,
                                     disableOnInteraction: false,
                                 }}
                                 style={{ maxWidth: lg ? '570px' : md ? '450px' : '320px', borderRadius: '16px' }}
                                 loop={true}
                             >
-                                <SwiperSlide style={{ width: '100%', maxHeight: { sm: '210px', md: '362px', xl: '433px' } }}>
-                                    <Box component={'img'} src={foto1} sx={{ width: '100%', height: { sm: '210px', md: '362px', xl: '433px' }, objectFit: 'cover', objectPosition: 'top' }} />
-                                </SwiperSlide>
-                                <SwiperSlide style={{ width: '100%', maxHeight: { sm: '210px', md: '362px', xl: '433px' } }}>
-                                    <Box component={'img'} src={foto1} sx={{ width: '100%', height: { sm: '210px', md: '362px', xl: '433px' }, objectFit: 'cover', objectPosition: 'top' }} />
-                                </SwiperSlide>
-                                <SwiperSlide style={{ width: '100%', maxHeight: { sm: '210px', md: '362px', xl: '433px' } }}>
-                                    <Box component={'img'} src={foto1} sx={{ width: '100%', height: { sm: '210px', md: '362px', xl: '433px' }, objectFit: 'cover', objectPosition: 'top' }} />
-                                </SwiperSlide>
+                                {dataProduct.image ? dataProduct.image.map((data, index) => {
+                                    return (
+                                        <SwiperSlide key={index} style={{ width: '100%', maxHeight: { sm: '210px', md: '362px', xl: '433px' } }}>
+                                            <Box  component={'img'} src={data} sx={{ width: '100%', height: { sm: '210px', md: '362px', xl: '433px' }, objectFit: 'contain', objectPosition: 'top' }} />
+                                        </SwiperSlide>
+                                    )
+                                }) : ''}
                             </Swiper>
                         </Box>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '32px', sm: '20px', md: '93px' } }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '32px', sm: '40px', md: '127px', xl: '122px' } }}>
                             <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '8px', sm: '10px', md: '28px' } }}>
                                 <Box sx={{ display: 'flex', backgroundColor: '#E1E6E1', width: '170px', height: { xs: '29px', sm: '29px', md: '36px', xl: '46px' }, alignItems: 'center', justifyContent: 'center', borderRadius: '8px' }}>
                                     <Typography sx={{ fontWeight: 500, fontSize: { xs: '13px', sm: '13px', md: '15px' }, color: 'black', fontFamily: 'Axiforma', lineHeight: '120%' }}>Backpack Details</Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '7px', sm: '16px' } }}>
-                                    <Typography sx={{ fontWeight: 600, fontSize: { sm: '14px', md: '23px', xl: '38px' }, fontFamily: 'Axiforma' }}>Jacquess Money Bands</Typography>
-                                    <Typography sx={{ fontWeight: 400, fontSize: { sm: '7px', md: '10px', xl: '15px' }, fontFamily: 'Axiforma', maxWidth: '570px', maxHeight: { xs: '90px', sm: '86px' } }}>Introducing our trendy orange tote bag featuring a bold dollar symbol - the perfect accessory for anyone who wants to make </Typography>
-                                    <Typography sx={{ fontWeight: 600, fontSize: { sm: '19px', md: '25px', xl: '32px' }, fontFamily: 'Axiforma' }}>Rp. 1.200K</Typography>
+                                    <Typography sx={{ fontWeight: 600, fontSize: { sm: '14px', md: '23px', xl: '38px' }, fontFamily: 'Axiforma' }}>{dataProduct.product_name}</Typography>
+                                    <Typography sx={{ fontWeight: 400, fontSize: { sm: '7px', md: '10px', xl: '15px' }, fontFamily: 'Axiforma', maxWidth: '570px', maxHeight: { xs: '90px', sm: '86px' } }}>{dataProduct.product_description}</Typography>
+                                    <Typography sx={{ fontWeight: 600, fontSize: { sm: '19px', md: '25px', xl: '32px' }, fontFamily: 'Axiforma' }}>Rp. {dataProduct.product_price}</Typography>
                                 </Box>
                             </Box>
-                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#25D366', borderRadius: '16px', maxWidth: '570px', height: { xs: '42px', sm: '42px', md: '100%', xl: '78px' }, cursor: 'pointer' }}>
-                                <Link target={'_blank'} rel="noopener noreferrer" href={'https://wa.me/+6281259516461?text=Hallo%20kak%20apakah%20produk%20ini%20ready%20'} sx={{ textDecoration: 'none', color: 'black' }}>
-                                    <Box sx={{ display: 'flex', gap: { sm: '10px', md: '19px' }, alignItems: 'center' }}>
+                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#25D366', borderRadius: '16px', maxWidth: '570px', height: { xs: '50px', sm: '42px', md: '55px', xl: '78px' }, cursor: 'pointer' }}>
+                                <Link target={'_blank'} rel="noopener noreferrer" href={`https://wa.me/+6281882883109?text=Hallo%20kak%20apakah%20produk%20${dataProduct.product_name}%20ready%20`} sx={{ textDecoration: 'none', color: 'black' }}>
+                                    <Box sx={{ display: 'flex', gap: { sm: '10px', md: '19px' }, alignItems: 'center', px: '10px' }}>
                                         <Typography sx={{ fontWeight: 600, fontSize: { sm: '8px', md: '14px', xl: '24px' }, fontFamily: 'Axiforma', lineHeight: '24px', color: 'white' }}>Contact Via Whatsapp</Typography>
                                         <Box sx={{ maxWidth: { sm: '13px', md: '21px', xl: '31px' }, maxHeight: { sm: '13px', md: '21px', xl: '31px' } }} component={'img'} src={whatsapp} />
                                     </Box>
