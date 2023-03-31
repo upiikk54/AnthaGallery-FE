@@ -5,6 +5,7 @@ import {
 import axios from "axios";
 const local_url = "http://localhost:8987";
 
+// Get all product
 export const getAllProducts = createAsyncThunk(
     'admin/getAllProducts',
     async () => {
@@ -25,6 +26,7 @@ export const getAllProducts = createAsyncThunk(
     }
 );
 
+// get product by id
 export const getProductById = createAsyncThunk(
     'admin/getProductById',
     async (id) => {
@@ -47,6 +49,7 @@ export const getProductById = createAsyncThunk(
     }
 );
 
+// get category by id
 export const getCategoryById = createAsyncThunk(
     'admin/getCategoryById',
     async (id) => {
@@ -69,8 +72,56 @@ export const getCategoryById = createAsyncThunk(
     }
 );
 
+// Delete Category By Id
+export const deleteCategoryById = createAsyncThunk(
+    'admin/deleteCategoryById',
+    async (id) => {
+        try {
+            const token = localStorage.getItem("token")
+            const response = await axios({
+                method: "DELETE",
+                url: `${local_url}/api/v1/category/delete/${id}`,
+                headers: {
+                    Accept: "application/json",
+                    "Content-type": "application/json",
+                    "Access-Control-Allow-Credentials": true,
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            return response.data;
+        } catch (error) {
+            return error.response.data
+        }
+    }
+);
+
+// Delete Category By Id
+export const deleteProductById = createAsyncThunk(
+    'admin/deleteProductById',
+    async (id) => {
+        try {
+            const token = localStorage.getItem("token")
+            const response = await axios({
+                method: "DELETE",
+                url: `${local_url}/api/v1/product/delete/${id}`,
+                headers: {
+                    Accept: "application/json",
+                    "Content-type": "application/json",
+                    "Access-Control-Allow-Credentials": true,
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            return response.data;
+        } catch (error) {
+            return error.response.data
+        }
+    }
+);
+
 const initialState = {
     getDataProducts: {},
+    getDataCategories: {},
+    getDataProductDelete: {},
     getDataProductSingle: {},
     getDataCategorySingle: {},
 }
@@ -129,6 +180,42 @@ const userSlice = createSlice({
             }
         },
         [getCategoryById.rejected]: (state, action) => {
+            return {
+                ...state
+            }
+        },
+
+        // Delete Category By Id
+        [deleteCategoryById.pending]: (state, action) => {
+            return {
+                ...state
+            }
+        },
+        [deleteCategoryById.fulfilled]: (state, action) => {
+            return {
+                ...state,
+                getDataCategories: action.payload.data
+            }
+        },
+        [deleteCategoryById.rejected]: (state, action) => {
+            return {
+                ...state
+            }
+        },
+
+        // Delete Category By Id
+        [deleteProductById.pending]: (state, action) => {
+            return {
+                ...state
+            }
+        },
+        [deleteProductById.fulfilled]: (state, action) => {
+            return {
+                ...state,
+                getDataProductDelete: action.payload.data
+            }
+        },
+        [deleteProductById.rejected]: (state, action) => {
             return {
                 ...state
             }

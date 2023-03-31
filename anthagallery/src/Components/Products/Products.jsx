@@ -2,16 +2,17 @@ import { Box, Card, Typography } from '@mui/material'
 import React from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProductByCategoryId } from '../../Redux/slices/UserReducer';
+import { getCategoryById, getProductByCategoryId } from '../../Redux/slices/UserReducer';
 
 function Products() {
     const dispatch = useDispatch()
     const { id } = useParams();
-    const dataProduct = useSelector(state => state.user.getDataCategoriesSingle)
+    const dataProduct = useSelector(state => state.user.getDataProductByCategorySingle)
+    const dataCategory = useSelector(state => state.user.getDataCategoriesSingle)
     React.useEffect(() => {
+        dispatch(getCategoryById(id))
         dispatch(getProductByCategoryId(id))
     }, [])
-
 
     return (
         <>
@@ -29,10 +30,10 @@ function Products() {
                             <Link to={`/`} style={{ textDecoration: "none", color: "black" }}>
                                 <Typography sx={{ fontWeight: 400, fontSize: { xs: '12px', sm: '16px' }, fontFamily: 'Axiforma' }}>Home / </Typography>
                             </Link>
-                            <Typography sx={{ fontWeight: 400, fontSize: { xs: '12px', sm: '16px' }, fontFamily: 'Axiforma', color: '#698269' }}>Backpack</Typography>
+                            <Typography sx={{ fontWeight: 400, fontSize: { xs: '12px', sm: '16px' }, fontFamily: 'Axiforma', color: '#698269' }}>{dataCategory.category_name}</Typography>
                         </Box>
                     </Box>
-                    <Typography sx={{ fontWeight: '600', fontSize: { xs: '16px', sm: '24px' }, fontFamily: 'Axiforma', mt: '36px' }}>Backpack Collection</Typography>
+                    <Typography sx={{ fontWeight: '600', fontSize: { xs: '16px', sm: '24px' }, fontFamily: 'Axiforma', mt: '36px' }}>{dataCategory.category_name} Collection</Typography>
                     <Box sx={{ display: 'flex', gap: { xs: '15px', sm: '25px', md: '30px' }, mt: '20px', flexWrap: 'wrap', width: '100%', maxWidth: '1440px', }}>
                         {dataProduct !== null && Object.keys(dataProduct).length !== 0 ? dataProduct.map((data, index) => {
                             return (

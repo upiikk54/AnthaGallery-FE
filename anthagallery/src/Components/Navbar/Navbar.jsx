@@ -3,7 +3,7 @@ import { Alert, Box, Button, IconButton, InputAdornment, Modal, TextField, Typog
 import Logo from '../../Assets/LogoCompany/AnthaGallery.jpeg'
 import { useDispatch, useSelector } from 'react-redux';
 import { authRegister, getUsers } from '../../Redux/slices/AuthReducer';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useSnackbar } from 'notistack'
 import axios from 'axios';
@@ -19,11 +19,6 @@ function Navbar() {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-    // const [scrolls, setScrolls] = React.useState(false)
-    // const scrolled = () => {
-    //     window.scrollY >= 1 ? setScrolls(true) : setScrolls(false)
-    // }
-    // window.addEventListener('scroll', scrolled)
 
     const [openRegister, setOpenRegister] = React.useState(false);
     const handleOpenRegister = () => setOpenRegister(true);
@@ -76,35 +71,7 @@ function Navbar() {
         setLoginValue({ ...loginValue, [prop]: event.target.value });
     };
 
-    // const handleLogin = async (e) => {
-    //     e.preventDefault()
-    //     const user = {
-    //         email: loginValue.emailValueLogin,
-    //         password: loginValue.passwordValueLogin,
-    //     }
-
-    //     dispatch(authLogin(user)).then((res) => {
-    //         console.log(res.payload.data);
-    //         if (res.payload.status === true || res.payload.statusCode === 201) {
-    //             enqueueSnackbar(`${res.payload.message}`, { variant: 'success', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 3000 });
-    //             handleCloseLogin()
-    //         } else if (res.payload.status === false || res.payload.statusCode === 400) {
-    //             enqueueSnackbar(`${res.payload.message}`, { variant: 'error', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 3000 });
-    //         } else {
-    //             if (res.payload.status === false || res.payload.statusCode === 401) {
-    //                 enqueueSnackbar(`${res.payload.message}`, { variant: 'error', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 3000 });
-    //             } else {
-    //                 enqueueSnackbar(`Gagal Login`, { variant: 'error', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 3000 });
-    //             }
-    //         }
-    //     })
-    // }
     const users = useSelector(state => state.auth.dataUsers)
-
-    const [errorResponse, setErrorResponse] = React.useState({
-        isError: false,
-        message: "",
-    });
     const handleLogin = async (e) => {
         e.preventDefault();
 
@@ -148,40 +115,6 @@ function Navbar() {
     const handleNavigateAdmin = () => {
         users.role === "admin" ? navigate('/admin/dashboard') : navigate('/')
     }
-    // const [isLoggedIn, setIsLoggedIn] = React.useState(true);
-    // const [isRefresh, setIsRefresh] = React.useState(false);
-
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             // Check status user login
-    //             // 1. Get token from localStorage
-    //             const token = localStorage.getItem("token");
-
-    //             // 2. Check token validity from API
-    //             const currentUserRequest = await axios.get(
-    //                 "http://localhost:8987/api/v1/me",
-    //                 {
-    //                     headers: {
-    //                         Authorization: `Bearer ${token}`,
-    //                     },
-    //                 }
-    //             );
-
-    //             const currentUserResponse = currentUserRequest.data;
-
-    //             if (currentUserResponse.status) {
-    //                 setUsers(currentUserResponse.data.user);
-    //             }
-    //         } catch (err) {
-    //             setIsLoggedIn(false);
-    //         }
-    //     };
-
-    //     fetchData();
-    // }, []);
-
 
 
     return (
@@ -308,9 +241,6 @@ function Navbar() {
                                 }}
                             />
                         </Box>
-                        {/* {errorResponse.isError && (
-                            <Alert variant="danger">{errorResponse.message}</Alert>
-                        )} */}
                         <Button
                             onClick={handleLogin}
                             variant='contained'
@@ -335,7 +265,8 @@ function Navbar() {
                     height: { xs: '60px', sm: '65px', md: '80px', xl: '116px' }
                 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', maxWidth: '1440px', px: { xs: '10px', sm: '100px' } }}>
-                        <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                        <Link to={'/'} style={{ textDecoration: "none", color: "black" }} >
+                        <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center', cursor: 'pointer' }}>
                             <Box sx={{ display: 'flex' }}>
                                 <Box sx={{ maxWidth: { xs: '20px', md: '35px', xl: '50px', sm: '30px' }, width: '100%', borderRadius: '50%' }} component={'img'} src={Logo} />
                             </Box>
@@ -344,6 +275,7 @@ function Navbar() {
                                 <Typography sx={{ color: 'black', fontSize: { xs: '15px', md: '20px', xl: '24px' }, fontWeight: '39px', lineHeight: '39px', fontFamily: 'Axiforma' }}>Gallery</Typography>
                             </Box>
                         </Box>
+                        </Link>
                         {users === undefined || users === null || Object.keys(users).length === 0 ?
                             <Box sx={{ display: 'flex', gap: { xs: '5px', sm: '10px', md: '28px' } }}>
                                 <Button onClick={handleOpenLogin} variant='outlined' sx={{ color: 'black', fontSize: { xs: '7px', sm: '10px', md: '13px', xl: '16px' }, width: '100%' }}>Login</Button>
@@ -356,7 +288,11 @@ function Navbar() {
                                 </Box>
                                 {users !== undefined && users.role === "admin" ?
                                     <Box sx={{ display: 'flex', gap: '10px' }}>
-                                        <Button onClick={handleNavigateAdmin} sx={{ backgroundColor: 'black', color: 'white', width: { md: '121px', sm: '121px', xs: '95px', xl: '100%' }, height: { md: '40px', sm: '40px', xs: '30px', xl: '100%'}, display: 'flex', p: 2, gap: '8px', borderRadius: '8px' }} variant='contained'>
+                                        <Button onClick={handleNavigateAdmin} sx={{
+                                            backgroundColor: 'black', color: 'white', width: { md: '121px', sm: '121px', xs: '95px', xl: '100%' }, height: { md: '40px', sm: '40px', xs: '30px', xl: '100%' }, display: 'flex', p: 2, gap: '8px', borderRadius: '8px', ":hover": {
+                                                bgcolor: "black"
+                                            }
+                                        }} variant='contained'>
                                             <HomeOutlinedIcon sx={{ width: { md: '24px', sm: '24px', xs: '18px' }, height: { md: '24px', sm: '24px', xs: '18px' } }} />
                                             <Typography sx={{ fontSize: { md: '14px', sm: '14px', xs: '12px' } }}>
                                                 Dashboard

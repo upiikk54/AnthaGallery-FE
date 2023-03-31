@@ -11,10 +11,10 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductById } from '../../Redux/slices/UserReducer';
-import { useParams } from 'react-router-dom';
-import { getUsers } from '../../Redux/slices/AuthReducer';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function DetailProduct() {
+    const navigate = useNavigate();
     const theme = useTheme();
     const md = useMediaQuery(theme.breakpoints.up('md'));
     const lg = useMediaQuery(theme.breakpoints.up('lg'));
@@ -22,16 +22,13 @@ function DetailProduct() {
     const dispatch = useDispatch()
     const { id } = useParams();
     const dataProduct = useSelector(state => state.user.getDataProductSingle)
+
     React.useEffect(() => {
         dispatch(getProductById(id))
     }, [])
-
-    // const users = useSelector(state => state.auth.dataUsers)
-    // React.useEffect(() => {
-    //     dispatch(getUsers())
-    // }, [])
-
-    // console.log(users);
+    const handleBackProduct = () => {
+        navigate(-1)
+    }
 
     return (
         <>
@@ -45,7 +42,12 @@ function DetailProduct() {
                     maxWidth: '1440px', gap: { xs: '28px', sm: '28px', md: '36px' }
                 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '1440px', }}>
-                        <Typography sx={{ fontWeight: 400, fontSize: { xs: '14px', sm: '14px', md: '16px' }, fontFamily: 'Axiforma' }}>Backpack / </Typography>
+                        <Link
+                            component="button"
+                            variant="body2"
+                            onClick={handleBackProduct} sx={{ textDecoration: "none", color: "black" }}>
+                            <Typography sx={{ fontWeight: 400, fontSize: { xs: '14px', sm: '14px', md: '16px' }, fontFamily: 'Axiforma' }}>{dataProduct.product_name} / </Typography>
+                        </Link>
                         <Typography sx={{ fontWeight: 400, fontSize: { xs: '14px', sm: '14px', md: '16px' }, fontFamily: 'Axiforma', color: '#698269' }}>Detail Product</Typography>
                     </Box>
                     <Box sx={{ display: 'flex', gap: '30px', flexWrap: { xs: 'wrap', sm: 'unset' } }}>
@@ -65,7 +67,7 @@ function DetailProduct() {
                                 {dataProduct.image ? dataProduct.image.map((data, index) => {
                                     return (
                                         <SwiperSlide key={index} style={{ width: '100%', maxHeight: { sm: '210px', md: '362px', xl: '433px' } }}>
-                                            <Box  component={'img'} src={data} sx={{ width: '100%', height: { sm: '210px', md: '362px', xl: '433px' }, objectFit: 'contain', objectPosition: 'top' }} />
+                                            <Box component={'img'} src={data} sx={{ width: '100%', height: { sm: '210px', md: '362px', xl: '433px' }, objectFit: 'contain', objectPosition: 'top' }} />
                                         </SwiperSlide>
                                     )
                                 }) : ''}

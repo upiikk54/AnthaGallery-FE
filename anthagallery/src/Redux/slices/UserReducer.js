@@ -5,6 +5,7 @@ import {
 import axios from "axios";
 const local_url = "http://localhost:8987";
 
+// Get all category
 export const getAllCategories = createAsyncThunk(
     'user/getAllCategories',
     async () => {
@@ -25,8 +26,9 @@ export const getAllCategories = createAsyncThunk(
     }
 );
 
+// get Product By Category Id
 export const getProductByCategoryId = createAsyncThunk(
-    'admin/getProductByCategoryId',
+    'user/getProductByCategoryId',
     async (category_id) => {
         try {
             const response = await axios({
@@ -45,8 +47,9 @@ export const getProductByCategoryId = createAsyncThunk(
     }
 );
 
+// Get Product By Id
 export const getProductById = createAsyncThunk(
-    'admin/getProductById',
+    'user/getProductById',
     async (id) => {
         try {
             const response = await axios({
@@ -65,8 +68,30 @@ export const getProductById = createAsyncThunk(
     }
 );
 
+// Get Category By Id
+export const getCategoryById = createAsyncThunk(
+    'user/getCategoryById',
+    async (id) => {
+        try {
+            const response = await axios({
+                method: "GET",
+                url: `${local_url}/api/v1/category/readUser/${id}`,
+                headers: {
+                    Accept: "application/json",
+                    "Content-type": "application/json",
+                    "Access-Control-Allow-Credentials": true,
+                }
+            })
+            return response.data;
+        } catch (error) {
+            return error.response.data
+        }
+    }
+);
+
 const initialState = {
     getDataCategories: {},
+    getDataProductByCategorySingle: {},
     getDataCategoriesSingle: {},
     getDataProductSingle: {},
 }
@@ -103,10 +128,28 @@ const userSlice = createSlice ({
         [getProductByCategoryId.fulfilled]: (state, action) => {
             return {
                 ...state,
-                getDataCategoriesSingle: action.payload.data.get_product_By_CategoryId
+                getDataProductByCategorySingle: action.payload.data.get_product_By_CategoryId
             }
         },
         [getProductByCategoryId.rejected]: (state, action) => {
+            return {
+                ...state
+            }
+        },
+
+        // Get Category By Id
+        [getCategoryById.pending]: (state, action) => {
+            return {
+                ...state
+            }
+        },
+        [getCategoryById.fulfilled]: (state, action) => {
+            return {
+                ...state,
+                getDataCategoriesSingle: action.payload.data.get_category_product_By_Id
+            }
+        },
+        [getCategoryById.rejected]: (state, action) => {
             return {
                 ...state
             }

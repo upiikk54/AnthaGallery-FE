@@ -22,6 +22,8 @@ import CategoryIcon from '@mui/icons-material/Category';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUsers } from '../../Redux/slices/AuthReducer';
 
 
 const drawerWidth = 240;
@@ -71,6 +73,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'flex-end',
 }));
 const Dashboard = (props) => {
+    const dispatch = useDispatch()
     const ref = React.useRef(null);
     const theme = useTheme();
     const [open, setOpen] = React.useState(true);
@@ -102,6 +105,11 @@ const Dashboard = (props) => {
         navigate('/')
     };
 
+    const users = useSelector(state => state.auth.dataUsers)
+    React.useEffect(() => {
+        dispatch(getUsers())
+    }, [])
+
     return (
         <>
             <Box sx={{ display: 'flex' }} ref={ref}>
@@ -123,7 +131,7 @@ const Dashboard = (props) => {
                                     Dashboard Admin
                                 </Typography>
                                 <Typography noWrap sx={{ fontSize: '14px', color: '#697586', fontFamily: 'Axiforma' }}>
-                                    Selamat Datang, Admin!
+                                    Selamat Datang, {users.userName}!
                                 </Typography>
                             </Box>
                         </Box>
