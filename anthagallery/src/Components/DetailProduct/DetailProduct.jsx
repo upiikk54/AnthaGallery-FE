@@ -6,13 +6,13 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import { Navigation, Pagination, Autoplay } from "swiper";
-import foto1 from '../../Assets/Carousel/Carousel1.png';
 import whatsapp from '../../Assets/DetailProduct/Whatsapp.png';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductById } from '../../Redux/slices/UserReducer';
 import { useParams } from 'react-router-dom';
+import { getUsers } from '../../Redux/slices/AuthReducer';
 
 function DetailProduct() {
     const theme = useTheme();
@@ -25,7 +25,13 @@ function DetailProduct() {
     React.useEffect(() => {
         dispatch(getProductById(id))
     }, [])
-    console.log(dataProduct);
+
+    // const users = useSelector(state => state.auth.dataUsers)
+    // React.useEffect(() => {
+    //     dispatch(getUsers())
+    // }, [])
+
+    // console.log(users);
 
     return (
         <>

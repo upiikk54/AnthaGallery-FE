@@ -1,7 +1,9 @@
 import { Box, Button, FormControl, MenuItem, Select, TextField, Typography } from '@mui/material';
 import React from 'react'
 import { NumericFormat } from 'react-number-format';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProductById } from '../../../Redux/slices/AdminReducer'
+import { useNavigate, useParams } from 'react-router-dom';
 import Dashboard from '../Dashboard';
 
 function UpdateProductAdmin() {
@@ -15,6 +17,13 @@ function UpdateProductAdmin() {
     const handleChange = (event) => {
         setAge(event.target.value);
     };
+    const dispatch = useDispatch()
+    const { id } = useParams();
+    const dataProduct = useSelector(state => state.admin.getDataProductSingle);
+    React.useEffect(() => {
+        dispatch(getProductById(id))
+    }, [])
+    console.log(dataProduct);
     return (
         <>
             <Dashboard>
@@ -22,13 +31,19 @@ function UpdateProductAdmin() {
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%', maxWidth: '1440px' }}>
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px', pt: '35px', px: '36px', width: '100%', maxWidth: '1440px', }}>
                             <Typography sx={{ fontSize: '18px', fontWeight: 400, fontFamily: 'Axiforma' }}>Nama Produk</Typography>
-                            <TextField fullWidth label="Nama Produk" id="fullWidth" />
+                            <TextField
+                                value={dataProduct.product_name}
+                                fullWidth
+                                placeholder="Nama Produk"
+                                id="fullWidth"
+                            />
                         </Box>
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px', px: '36px', width: '100%', maxWidth: '1440px', }}>
                             <Typography sx={{ fontSize: '18px', fontWeight: 400, fontFamily: 'Axiforma' }}>Harga</Typography>
                             <NumericFormat
+                                value={dataProduct.product_price}
                                 allowLeadingZeros
-                                label="harga produk"
+                                placeholder="harga produk"
                                 thousandSeparator=","
                                 customInput={TextField}
                             />
@@ -36,8 +51,9 @@ function UpdateProductAdmin() {
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px', px: '36px', width: '100%', maxWidth: '1440px', }}>
                             <Typography sx={{ fontSize: '18px', fontWeight: 400, fontFamily: 'Axiforma' }}>Deskripsi</Typography>
                             <TextField
+                                value={dataProduct.product_description}
                                 id="outlined-multiline-static"
-                                label="Deskripsi"
+                                placeholder="Deskripsi"
                                 multiline
                                 rows={4}
                             />

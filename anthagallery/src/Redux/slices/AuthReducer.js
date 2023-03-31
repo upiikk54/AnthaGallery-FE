@@ -60,12 +60,16 @@ export const getUsers = createAsyncThunk(
 
 const initialState = {
     dataUsers: {},
-    getDataUserWithToken: {}
 }
 
 const authSlice = createSlice({
     name: 'auth',
     initialState,
+    reducers: {
+        setUser: (state, action) => {
+            state.dataUsers = action.payload
+        },
+    },
     extraReducers: {
         // Register
         [authRegister.pending]: (state, action) => {
@@ -114,7 +118,7 @@ const authSlice = createSlice({
         [getUsers.fulfilled]: (state, action) => {
             return {
                 ...state,
-                dataUserWithToken: action.payload.data.user
+                dataUsers: action.payload.data.user
             }
         },
         [getUsers.rejected]: (state, action) => {

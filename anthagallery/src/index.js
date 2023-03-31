@@ -30,9 +30,9 @@ root.render(
               <Route path="/admin/dashboard" element={<CategoryAdmin />} />
               <Route path="/admin/product" element={<ProductAdmin />} />
               <Route path="/admin/dashboard/add-category" element={<AddCategoryAdmin />} />
-              <Route path="/admin/dashboard/update-category" element={<UpdateCategoryAdmin />} />
+              <Route path="/admin/dashboard/update-category/:id" element={<UpdateCategoryAdmin />} />
               <Route path="/admin/product/add-product" element={<AddProductAdmin />} />
-              <Route path="/admin/product/update-product" element={<UpdateProductAdmin />} />
+              <Route path="/admin/product/update-product/:id" element={<UpdateProductAdmin />} />
             </Routes>
         </ThemeProvider>
       </SnackbarProvider>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import { styled, useTheme } from '@mui/material/styles';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,7 +16,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import CategoryIcon from '@mui/icons-material/Category';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
@@ -95,6 +95,12 @@ const Dashboard = (props) => {
     ]
     const location = useLocation().pathname
     const onClickMenu = menus.filter((data) => location.includes(data.link))
+    const navigate = useNavigate()
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        navigate('/')
+    };
 
     return (
         <>
@@ -121,6 +127,7 @@ const Dashboard = (props) => {
                                 </Typography>
                             </Box>
                         </Box>
+                        <Button onClick={(e) => handleLogout(e)} variant='outlined' color='error'>Logout</Button>
                     </Toolbar>
                 </AppBar>
                 <Drawer
@@ -138,15 +145,17 @@ const Dashboard = (props) => {
                     open={open}
                 >
                     <DrawerHeader sx={{ justifyContent: 'space-between', py: 1.85 }}>
-                        <Box sx={{ display: 'flex', gap: '12px', alignItems: 'center', cursor: 'pointer' }}>
-                            <Box sx={{ display: 'flex' }}>
-                                <Box sx={{ maxWidth: '41px', width: '100%', borderRadius: '50%' }} component={'img'} src={Logo} />
+                        <Link to={'/'} style={{ textDecoration: "none", color: "black" }} >
+                            <Box sx={{ display: 'flex', gap: '12px', alignItems: 'center', cursor: 'pointer' }}>
+                                <Box sx={{ display: 'flex' }}>
+                                    <Box sx={{ maxWidth: '41px', width: '100%', borderRadius: '50%' }} component={'img'} src={Logo} />
+                                </Box>
+                                <Box sx={{ display: 'flex' }}>
+                                    <Typography sx={{ color: '#FFD12D', fontSize: '18px', fontWeight: 600, lineHeight: '39px', fontFamily: 'Axiforma' }}>Antha</Typography>
+                                    <Typography sx={{ color: 'white', fontSize: '18px', fontWeight: 600, lineHeight: '39px', fontFamily: 'Axiforma' }}>Gallery</Typography>
+                                </Box>
                             </Box>
-                            <Box sx={{ display: 'flex' }}>
-                                <Typography sx={{ color: '#FFD12D', fontSize: '18px', fontWeight: 600, lineHeight: '39px', fontFamily: 'Axiforma' }}>Antha</Typography>
-                                <Typography sx={{ color: 'white', fontSize: '18px', fontWeight: 600, lineHeight: '39px', fontFamily: 'Axiforma' }}>Gallery</Typography>
-                            </Box>
-                        </Box>
+                        </Link>
                         <IconButton onClick={handleDrawerClose}>
                             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                         </IconButton>
