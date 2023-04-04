@@ -142,14 +142,12 @@ function AddProductAdmin() {
                             <TextField
                                 inputRef={productNameValue}
                                 fullWidth
-                                label="Nama Produk"
                                 id="fullWidth" />
                         </Box>
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px', px: '36px', width: '100%', maxWidth: '1440px', }}>
                             <Typography sx={{ fontSize: '18px', fontWeight: 400, fontFamily: 'Axiforma' }}>Harga</Typography>
                             <TextField
                                 id="outlined-number"
-                                label="Harga Produk"
                                 type="number"
                                 inputRef={productPriceValue}
                                 InputLabelProps={{
@@ -162,7 +160,6 @@ function AddProductAdmin() {
                             <TextField
                                 inputRef={productDescriptionValue}
                                 id="outlined-multiline-static"
-                                label="Deskripsi"
                                 multiline
                                 rows={4}
                             />

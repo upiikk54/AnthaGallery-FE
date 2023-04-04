@@ -12,7 +12,6 @@ function CategoryProduct() {
     React.useEffect(() => {
         dispatch(getAllCategories())
     }, [])
-    console.log(dataCategories);
     return (
         <>
             <Box sx={{

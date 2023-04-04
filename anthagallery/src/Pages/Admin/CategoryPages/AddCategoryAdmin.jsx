@@ -1,8 +1,7 @@
-import { Alert, Box, Button, TextField, Typography } from '@mui/material'
+import { Box, Button, TextField, Typography } from '@mui/material'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import Dashboard from '../Dashboard'
-import { useDispatch } from 'react-redux'
 import { useSnackbar } from 'notistack'
 import { useDropzone } from "react-dropzone";
 import axios from 'axios'
@@ -10,7 +9,6 @@ import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 
 function AddCategoryAdmin() {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
     const handleCancelCategory = () => {
         navigate(-1)
