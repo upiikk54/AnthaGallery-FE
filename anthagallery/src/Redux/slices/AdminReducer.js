@@ -118,7 +118,29 @@ export const deleteProductById = createAsyncThunk(
     }
 );
 
+// get All History Chat
+export const getAllHistoryChat = createAsyncThunk(
+    'admin/getAllHistoryChat',
+    async () => {
+        try {
+            const response = await axios({
+                method: "GET",
+                url: `${local_url}/api/v1/chatHistory/read`,
+                headers: {
+                    Accept: "application/json",
+                    "Content-type": "application/json",
+                    "Access-Control-Allow-Credentials": true,
+                }
+            })
+            return response.data;
+        } catch (error) {
+            return error.response.data
+        }
+    }
+);
+
 const initialState = {
+    getDataHistoryChat: {},
     getDataProducts: {},
     getDataCategories: {},
     getDataProductDelete: {},
@@ -216,6 +238,24 @@ const userSlice = createSlice({
             }
         },
         [deleteProductById.rejected]: (state, action) => {
+            return {
+                ...state
+            }
+        },
+
+        // Get All History Chat
+        [getAllHistoryChat.pending]: (state, action) => {
+            return {
+                ...state
+            }
+        },
+        [getAllHistoryChat.fulfilled]: (state, action) => {
+            return {
+                ...state,
+                getDataHistoryChat: action.payload.data.get_all_history_chat
+            }
+        },
+        [getAllHistoryChat.rejected]: (state, action) => {
             return {
                 ...state
             }

@@ -1,52 +1,41 @@
-import { Box, Button, IconButton, Modal, Tooltip, Typography } from '@mui/material';
-import React from 'react';
-import Dashboard from '../Dashboard';
+import React from 'react'
+import Dashboard from '../Dashboard'
+import { Box, Button, IconButton, Modal, Tooltip, Typography } from '@mui/material'
+import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
-import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { deleteProductById } from '../../../Redux/slices/AdminReducer';
-import StorageIcon from '@mui/icons-material/Storage';
-import { useSnackbar } from 'notistack';
 import axios from 'axios';
 import empty from '../../../Assets/GIF/empty-box.gif';
+import { useSnackbar } from 'notistack';
+import { useDispatch } from 'react-redux';
+import { deleteProductById } from '../../../Redux/slices/AdminReducer';
 
-function ProductAdmin() {
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
+
+function ArchivesPageAdmin() {
     const { enqueueSnackbar } = useSnackbar();
-    const [dataProducts, setDataProducts] = React.useState([]);
-    const [openModalDelete, setOpenModalDelete] = React.useState(false);
-    const handleCloseModalDelete = () => setOpenModalDelete(false);
+    const dispatch = useDispatch()
     const [idProduct, setIdProduct] = React.useState()
-    const handleOpenModalDelete = (id) => {
-        setOpenModalDelete(true);
-        setIdProduct(id)
-    }
     const [openModalArchives, setOpenModalArchives] = React.useState(false);
     const handleCloseModalArchives = () => setOpenModalArchives(false);
     const handleOpenModalArchives = (id) => {
         setOpenModalArchives(true);
         setIdProduct(id)
     }
-
-    const handleAddProduct = () => {
-        navigate('/admin/product/add-product')
+    const [openModalDelete, setOpenModalDelete] = React.useState(false);
+    const handleCloseModalDelete = () => setOpenModalDelete(false);
+    const handleOpenModalDelete = (id) => {
+        setOpenModalDelete(true);
+        setIdProduct(id)
     }
-
-    // const dataProducts = useSelector(state => state.admin.getDataProducts)
-    // React.useEffect(() => {
-    //     dispatch(getAllProducts())
-    // }, [])
+    const [product, setProduct] = React.useState([]);
     const getProductArchives = async () => {
         try {
             const dataProduct = await axios.get(
-                `http://localhost:8987/api/v1/product/read?archives=false`
+                `http://localhost:8987/api/v1/product/read?archives=true`
             )
 
             const payloadData = await dataProduct.data.data.get_all_product;
-            setDataProducts(payloadData)
+            setProduct(payloadData)
         } catch (err) {
             const response = err.response.data;
             enqueueSnackbar(`${response.message}`, { variant: 'error', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 3000 });
@@ -56,7 +45,7 @@ function ProductAdmin() {
         getProductArchives()
     }, [])
 
-    const handleUpdateProductArchives = async (idProduct, archives) => {
+    const handleUpdateArchives = async (idProduct, archives) => {
         try {
             const token = localStorage.getItem("token");
             const postPayload = new FormData();
@@ -89,10 +78,10 @@ function ProductAdmin() {
     const handleDeleteProductCategoryById = (id) => {
         dispatch(deleteProductById(id)).then((res) => {
             if (res.payload.status === true || res.payload.statusCode === 201) {
-                getProductArchives()
                 enqueueSnackbar(`${res.payload.message}`, { variant: 'success', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 1500 });
                 handleCloseModalDelete()
-            } else if (res.payload.status === false || res.payload.statusCode === 401) {
+                getProductArchives()
+            }else if (res.payload.status === false || res.payload.statusCode === 401) {
                 enqueueSnackbar(`${res.payload.message}`, { variant: 'error', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 1500 });
             } else {
                 enqueueSnackbar(`Gagal menghapus produk`, { variant: 'error', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 1500 });
@@ -122,11 +111,11 @@ function ProductAdmin() {
                                 {/* <Box component={'img'} src={Warning} sx={{ width: '250px', height: '250px' }} /> */}
                             </Box>
                             <Typography sx={{ mt: 2, textAlign: 'center' }}>
-                                Apakah anda yakin ingin mengarsipkan produk ini ?
+                                Apakah anda yakin ingin mengembalikan produk dari arsip ?
                             </Typography>
                             <Box sx={{ display: 'flex', justifyContent: 'center', gap: '10px', mt: '20px' }}>
                                 <Button onClick={handleCloseModalArchives} variant='outlined'>Batalkan</Button>
-                                <Button onClick={() => handleUpdateProductArchives(idProduct, true)} variant='outlined' color='error'>Yakin</Button>
+                                <Button onClick={() => handleUpdateArchives(idProduct, false)} variant='outlined' color='error'>Yakin</Button>
                             </Box>
                         </Box>
                     </Box>
@@ -150,7 +139,7 @@ function ProductAdmin() {
                                 {/* <Box component={'img'} src={Warning} sx={{ width: '250px', height: '250px' }} /> */}
                             </Box>
                             <Typography sx={{ mt: 2, textAlign: 'center' }}>
-                                Apakah anda yakin ingin menghapus kategori ini ?
+                                Apakah anda yakin ingin mengembalikan produk dari arsip ?
                             </Typography>
                             <Box sx={{ display: 'flex', justifyContent: 'center', gap: '10px', mt: '20px' }}>
                                 <Button onClick={handleCloseModalDelete} variant='outlined'>Batalkan</Button>
@@ -159,70 +148,56 @@ function ProductAdmin() {
                         </Box>
                     </Box>
                 </Modal>
-                {dataProducts.length !== 0 ?
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '24px', mt: '20px', width: '100%', maxWidth: '1440px' }}>
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <Typography sx={{ fontWeight: 600, fontSize: '20px', fontFamily: 'Axiforma' }}>Produk</Typography>
-                            <Button onClick={handleAddProduct} variant='contained' sx={{
-                                width: '199px', height: '40px', backgroundColor: 'black', fontFamily: 'Axiforma', ":hover": {
-                                    bgcolor: "black"
-                                }
-                            }}>Tambah Produk</Button>
-                        </Box>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '24px', }}>
-                            {dataProducts !== null && Object.keys(dataProducts).length !== 0 ? dataProducts.map((data, index) => {
-                                return (
-                                    <Box key={index} sx={{ display: 'flex', justifyContent: 'space-between', border: '1px solid rgba(16, 16, 16, 0.5)', p: '20px 36px', alignItems: 'center', height: '82px' }}>
-                                        <Box sx={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-                                            <Box sx={{ width: '42px', height: '42px', border: '1px solid #101010', borderRadius: '4px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                                <Inventory2OutlinedIcon />
-                                            </Box>
-                                            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                                                <Typography sx={{ fontWeight: 600, fontSize: '20px', fontFamily: 'Axiforma' }}>{data.product_name}</Typography>
-                                            </Box>
+                {product.length !== 0 ? 
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: '24px', mt: '20px', width: '100%', maxWidth: '1440px' }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Typography sx={{ fontWeight: 600, fontSize: '20px', fontFamily: 'Axiforma' }}>Arsip Produk</Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '24px', }}>
+                        {product !== null && Object.keys(product).length !== 0 ? product.map((data, index) => {
+                            return (
+                                <Box key={index} sx={{ display: 'flex', justifyContent: 'space-between', border: '1px solid rgba(16, 16, 16, 0.5)', p: '20px 36px', alignItems: 'center', height: '82px' }}>
+                                    <Box sx={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                                        <Box sx={{ width: '42px', height: '42px', border: '1px solid #101010', borderRadius: '4px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                            <Inventory2OutlinedIcon />
                                         </Box>
-                                        <Box className='admin-toggle' sx={{ display: 'flex', gap: '8px' }}>
-                                            <Tooltip title="Edit">
-                                                <IconButton onClick={() => handleOpenModalArchives(data._id)} sx={{ color: 'black' }}>
-                                                    <StorageIcon />
-                                                </IconButton>
-                                            </Tooltip>
-                                            <Tooltip title="Edit">
-                                                <Link to={`/admin/product/update-product/${data._id}`} style={{ textDecoration: "none", color: "black" }}>
-                                                    <IconButton sx={{ color: 'black' }}>
-                                                        <EditOutlinedIcon />
-                                                    </IconButton>
-                                                </Link>
-                                            </Tooltip>
-                                            <Tooltip title="Delete">
-                                                <IconButton onClick={() => handleOpenModalDelete(data._id)} sx={{ color: 'black' }}>
-                                                    <DeleteOutlineOutlinedIcon sx={{ color: 'red' }} />
-                                                </IconButton>
-                                            </Tooltip>
+                                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                            <Typography sx={{ fontWeight: 600, fontSize: '20px', fontFamily: 'Axiforma' }}>{data.product_name}</Typography>
                                         </Box>
                                     </Box>
-                                )
-                            }) : ''}
-                        </Box>
+                                    <Box className='admin-toggle' sx={{ display: 'flex', gap: '8px' }}>
+                                        <Tooltip title="Edit">
+                                            <IconButton onClick={() => handleOpenModalArchives(data._id)} sx={{ color: 'black' }}>
+                                                <EditOutlinedIcon />
+                                            </IconButton>
+                                        </Tooltip>
+                                        <Tooltip title="Delete">
+                                            <IconButton onClick={() => handleOpenModalDelete(data._id)} sx={{ color: 'black' }}>
+                                                <DeleteOutlineOutlinedIcon sx={{ color: 'red' }} />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </Box>
+                                </Box>
+                            )
+                        }) : ''}
                     </Box>
-                    :
-                    <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', height: '70vh' }}>
+                </Box>
+                :
+                <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', height: '70vh' }}>
                         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                             <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                                     <Box component={'img'} src={empty} sx={{ width: '272px', height: '272px' }} />
-                                    <Typography sx={{ color: '#6D7280', fontSize: '18px' }}>Kamu belum memiliki produk</Typography>
-                                </Box>
-                                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <Button onClick={handleAddProduct} variant='contained' color='primary' sx={{ width: '131px', height: '48px', borderRadius: '9px' }}>Tambahkan</Button>
+                                    <Typography sx={{ color: '#6D7280', fontSize: '18px' }}>Kamu tidak memiliki produk yang diarsip</Typography>
                                 </Box>
                             </Box>
                         </Box>
                     </Box>
                 }
+
             </Dashboard>
         </>
     )
 }
 
-export default ProductAdmin
+export default ArchivesPageAdmin

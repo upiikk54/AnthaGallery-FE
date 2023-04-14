@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllCategories } from '../../../Redux/slices/UserReducer';
 import { deleteCategoryById } from '../../../Redux/slices/AdminReducer';
 import { useSnackbar } from 'notistack';
+import empty from '../../../Assets/GIF/empty-box.gif';
 
 
 function CategoryAdmin() {
@@ -36,7 +37,7 @@ function CategoryAdmin() {
                 dispatch(getAllCategories())
                 enqueueSnackbar(`${res.payload.message}`, { variant: 'success', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 1500 });
                 handleCloseModalDelete()
-            }else if (res.payload.status === false || res.payload.statusCode === 401) {
+            } else if (res.payload.status === false || res.payload.statusCode === 401) {
                 enqueueSnackbar(`${res.payload.message}`, { variant: 'error', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 1500 });
             } else {
                 enqueueSnackbar(`Gagal menghapus kategori`, { variant: 'error', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 1500 });
@@ -75,45 +76,61 @@ function CategoryAdmin() {
                         </Box>
                     </Box>
                 </Modal>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: '24px', mt: '20px', width: '100%', maxWidth: '1440px' }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Typography sx={{ fontWeight: 600, fontSize: '20px', fontFamily: 'Axiforma' }}>Kategori</Typography>
-                        <Button onClick={handleAddCategory} variant='contained' sx={{
-                            width: '199px', height: '40px', backgroundColor: 'black', fontFamily: 'Axiforma', ":hover": {
-                                bgcolor: "black"
-                            }
-                        }}>Tambah Kategori</Button>
-                    </Box>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '24px', }}>
-                        {dataCategories !== null && Object.keys(dataCategories).length !== 0 ? dataCategories.map((data, index) => {
-                            return (
-                                <Box key={index} sx={{ display: 'flex', justifyContent: 'space-between', border: '1px solid rgba(16, 16, 16, 0.5)', p: '20px 36px', alignItems: 'center', height: '82px' }}>
-                                    <Box sx={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-                                        <Box sx={{ width: '42px', height: '42px', border: '1px solid #101010', borderRadius: '4px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                            <CategoryOutlinedIcon />
+                {dataCategories.length !== 0 ?
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '24px', mt: '20px', width: '100%', maxWidth: '1440px' }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <Typography sx={{ fontWeight: 600, fontSize: '20px', fontFamily: 'Axiforma' }}>Kategori</Typography>
+                            <Button onClick={handleAddCategory} variant='contained' sx={{
+                                width: '199px', height: '40px', backgroundColor: 'black', fontFamily: 'Axiforma', ":hover": {
+                                    bgcolor: "black"
+                                }
+                            }}>Tambah Kategori</Button>
+                        </Box>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '24px', }}>
+                            {dataCategories !== null && Object.keys(dataCategories).length !== 0 ? dataCategories.map((data, index) => {
+                                return (
+                                    <Box key={index} sx={{ display: 'flex', justifyContent: 'space-between', border: '1px solid rgba(16, 16, 16, 0.5)', p: '20px 36px', alignItems: 'center', height: '82px' }}>
+                                        <Box sx={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                                            <Box sx={{ width: '42px', height: '42px', border: '1px solid #101010', borderRadius: '4px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                                <CategoryOutlinedIcon />
+                                            </Box>
+                                            <Typography sx={{ fontWeight: 600, fontSize: '20px', fontFamily: 'Axiforma' }}>{data.category_name}</Typography>
                                         </Box>
-                                        <Typography sx={{ fontWeight: 600, fontSize: '20px', fontFamily: 'Axiforma' }}>{data.category_name}</Typography>
-                                    </Box>
-                                    <Box className='admin-toggle' sx={{ display: 'flex', gap: '8px' }}>
-                                        <Tooltip title="Edit">
-                                            <Link to={`/admin/dashboard/update-category/${data._id}`} style={{ textDecoration: "none", color: "black" }}>
-                                                <IconButton sx={{ color: 'black' }}>
-                                                    <EditOutlinedIcon />
+                                        <Box className='admin-toggle' sx={{ display: 'flex', gap: '8px' }}>
+                                            <Tooltip title="Edit">
+                                                <Link to={`/admin/dashboard/update-category/${data._id}`} style={{ textDecoration: "none", color: "black" }}>
+                                                    <IconButton sx={{ color: 'black' }}>
+                                                        <EditOutlinedIcon />
+                                                    </IconButton>
+                                                </Link>
+                                            </Tooltip>
+                                            <Tooltip title="Delete">
+                                                <IconButton onClick={() => handleOpenModalDelete(data._id)} sx={{ color: 'black' }}>
+                                                    <DeleteOutlineOutlinedIcon sx={{ color: 'red' }} />
                                                 </IconButton>
-                                            </Link>
-                                        </Tooltip>
-                                        <Tooltip title="Delete">
-                                            <IconButton onClick={() => handleOpenModalDelete(data._id)} sx={{ color: 'black' }}>
-                                                <DeleteOutlineOutlinedIcon sx={{ color: 'red' }} />
-                                            </IconButton>
-                                        </Tooltip>
+                                            </Tooltip>
+                                        </Box>
                                     </Box>
-                                </Box>
-                            )
-                        }) : ''}
+                                )
+                            }) : ''}
 
+                        </Box>
                     </Box>
-                </Box>
+                    :
+                    <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', height: '70vh' }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                    <Box component={'img'} src={empty} sx={{ width: '272px', height: '272px' }} />
+                                    <Typography sx={{ color: '#6D7280', fontSize: '18px' }}>Kamu belum memiliki kategori</Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                                    <Button onClick={handleAddCategory} variant='contained' color='primary' sx={{ width: '131px', height: '48px', borderRadius: '9px' }}>Tambahkan</Button>
+                                </Box>
+                            </Box>
+                        </Box>
+                    </Box>
+                }
             </Dashboard>
         </>
     )

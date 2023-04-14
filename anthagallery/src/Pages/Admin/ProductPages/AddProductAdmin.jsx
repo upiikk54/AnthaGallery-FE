@@ -2,7 +2,6 @@ import { Box, Button, FormControl, MenuItem, Select, TextField, Typography } fro
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import Dashboard from '../Dashboard'
-import { NumericFormat } from "react-number-format";
 import { useDropzone } from 'react-dropzone';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import { useSnackbar } from 'notistack';
@@ -96,7 +95,7 @@ function AddProductAdmin() {
     const [categoryId, setCategoryId] = React.useState()
 
 
-    const handleCreateProduct = async (e) => {
+    const handleCreateProduct = async (e, archives) => {
         e.preventDefault();
         try {
             const token = localStorage.getItem("token");
@@ -105,6 +104,7 @@ function AddProductAdmin() {
             postPayload.append("product_name", productNameValue.current.value);
             postPayload.append("product_price", productPriceValue.current.value);
             postPayload.append("product_description", productDescriptionValue.current.value);
+            postPayload.append("archives", archives);
             files.forEach(element => {
                 postPayload.append("image", element);
             });
@@ -122,7 +122,7 @@ function AddProductAdmin() {
             const createResponse = createRequest.data;
 
             if (createResponse.status) {
-                navigate('/admin/dashboard')
+                navigate('/admin/product')
                 enqueueSnackbar(`${createResponse.message}`, { variant: 'success', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 3000 });
             }
 
@@ -208,7 +208,7 @@ function AddProductAdmin() {
                             <Button variant='outlined' onClick={handleCancelProduct} sx={{
                                 border: '1px solid #6D7280', color: 'black'
                             }}>Batalkan</Button>
-                            <Button onClick={handleCreateProduct} variant='contained' sx={{
+                            <Button onClick={(e) => handleCreateProduct(e, false)}  variant='contained' sx={{
                                 height: '56px', backgroundColor: 'black', fontFamily: 'Axiforma', ":hover": {
                                     bgcolor: "black"
                                 }, fontSize: '16px'

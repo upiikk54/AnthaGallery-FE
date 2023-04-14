@@ -16,6 +16,8 @@ import UpdateProductAdmin from './Pages/Admin/ProductPages/UpdateProductAdmin';
 import { Provider } from 'react-redux';
 import store from './Redux/store';
 import { SnackbarProvider } from 'notistack';
+import ArchivesPageAdmin from './Pages/Admin/ArchivesPages/ArchivesPageAdmin';
+import HistoryChatPage from './Pages/Admin/HistoryChatUsersPages/HistoryChatPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -29,6 +31,8 @@ root.render(
               <Route path="/detail-product/:id" element={<DetailProductPages />} />
               <Route path="/admin/dashboard" element={<CategoryAdmin />} />
               <Route path="/admin/product" element={<ProductAdmin />} />
+              <Route path="/admin/archives" element={<ArchivesPageAdmin />} />
+              <Route path="/admin/history-chat" element={<HistoryChatPage />} />
               <Route path="/admin/dashboard/add-category" element={<AddCategoryAdmin />} />
               <Route path="/admin/dashboard/update-category/:id" element={<UpdateCategoryAdmin />} />
               <Route path="/admin/product/add-product" element={<AddProductAdmin />} />

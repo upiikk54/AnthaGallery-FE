@@ -1,4 +1,4 @@
-import { Box, Link, Typography } from '@mui/material'
+import { Box, Button, Link, Typography } from '@mui/material'
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -12,9 +12,12 @@ import { useTheme } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductById } from '../../Redux/slices/UserReducer';
 import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+import { useSnackbar } from 'notistack';
 
 function DetailProduct() {
     const navigate = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
     const theme = useTheme();
     const md = useMediaQuery(theme.breakpoints.up('md'));
     const lg = useMediaQuery(theme.breakpoints.up('lg'));
@@ -29,6 +32,37 @@ function DetailProduct() {
     const handleBackProduct = () => {
         navigate(-1)
     }
+    
+    const handleCreateHistoryChat = async (e) => {
+        e.preventDefault();
+
+        try {
+            const token = localStorage.getItem("token");
+            const chatUsersPayload = {
+                product_id: dataProduct._id,
+                chat_users: `Hallo kak apakah produk ${dataProduct.product_name} ready ?`,
+            }
+
+            const postPayload = await axios.post(
+                "http://localhost:8987/api/v1/chatHistory/create",
+                chatUsersPayload,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            )
+            const CreateResponse = postPayload.data;
+
+            if (CreateResponse.status) {
+                enqueueSnackbar(`${CreateResponse.message}`, { variant: 'success', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 3000 });
+                window.location.href = `https://wa.me/+6281882883109?text=Hallo%20kak%20apakah%20produk%20${dataProduct.product_name}%20ready%20`
+            }
+        } catch (err) {
+            const response = err.response.data;
+            enqueueSnackbar(`${response.message}`, { variant: 'error', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 3000 });
+        }
+    };
 
     return (
         <>
@@ -84,14 +118,14 @@ function DetailProduct() {
                                     <Typography sx={{ fontWeight: 600, fontSize: { sm: '19px', md: '25px', xl: '32px' }, fontFamily: 'Axiforma' }}>Rp. {dataProduct.product_price}</Typography>
                                 </Box>
                             </Box>
-                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#25D366', borderRadius: '16px', maxWidth: '570px', height: { xs: '50px', sm: '42px', md: '55px', xl: '78px' }, cursor: 'pointer' }}>
-                                <Link target={'_blank'} rel="noopener noreferrer" href={`https://wa.me/+6281882883109?text=Hallo%20kak%20apakah%20produk%20${dataProduct.product_name}%20ready%20`} sx={{ textDecoration: 'none', color: 'black' }}>
-                                    <Box sx={{ display: 'flex', gap: { sm: '10px', md: '19px' }, alignItems: 'center', px: '10px' }}>
-                                        <Typography sx={{ fontWeight: 600, fontSize: { sm: '8px', md: '14px', xl: '24px' }, fontFamily: 'Axiforma', lineHeight: '24px', color: 'white' }}>Contact Via Whatsapp</Typography>
-                                        <Box sx={{ maxWidth: { sm: '13px', md: '21px', xl: '31px' }, maxHeight: { sm: '13px', md: '21px', xl: '31px' } }} component={'img'} src={whatsapp} />
-                                    </Box>
-                                </Link>
-                            </Box>
+                            <Button onClick={handleCreateHistoryChat} variant="contained" sx={{
+                                display: 'flex', gap: '16px', justifyContent: 'center', alignItems: 'center', backgroundColor: '#25D366', borderRadius: '16px', maxWidth: '570px', height: { xs: '50px', sm: '42px', md: '55px', xl: '78px' }, ":hover": {
+                                    bgcolor: "#25D366"
+                                }
+                            }}>
+                                <Typography sx={{ fontWeight: 600, fontSize: { sm: '8px', md: '14px', xl: '24px' }, fontFamily: 'Axiforma', lineHeight: '24px', color: 'white' }}>Contact Via Whatsapp</Typography>
+                                <Box sx={{ maxWidth: { sm: '13px', md: '21px', xl: '31px' }, maxHeight: { sm: '13px', md: '21px', xl: '31px' } }} component={'img'} src={whatsapp} />
+                            </Button>
                         </Box>
                     </Box>
                 </Box>

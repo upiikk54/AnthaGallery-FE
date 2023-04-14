@@ -118,7 +118,6 @@ function AddCategoryAdmin() {
                             <TextField
                                 inputRef={categoryNameField}
                                 fullWidth
-                                label="Kategori"
                                 id="fullWidth"
                             />
                         </Box>
