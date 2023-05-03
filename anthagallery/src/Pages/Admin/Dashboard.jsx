@@ -146,7 +146,7 @@ const Dashboard = (props) => {
                                 </Typography>
                             </Box>
                         </Box>
-                        <Button onClick={(e) => handleLogout(e)} variant='outlined' color='error'>Logout</Button>
+                        <Button onClick={(e) => handleLogout(e)} variant='outlined' color='error' sx={{ textTransform: 'none' }}>Logout</Button>
                     </Toolbar>
                 </AppBar>
                 <Drawer
@@ -192,8 +192,8 @@ const Dashboard = (props) => {
                                             <ListItemIcon sx={{ display: 'flex', justifyContent: 'center' }}>
                                                 {text.name === 'Kategori' ? onClickMenu[0].name === text.name ? <CategoryIcon sx={{ color: 'white' }} /> : <CategoryOutlinedIcon />
                                                     : text.name === 'Produk' ? onClickMenu[0].name === text.name ? <Inventory2Icon sx={{ color: 'white' }} /> : <Inventory2OutlinedIcon sx={{ color: onClickMenu[0].name === text.name && 'white' }} />
-                                                        : text.name === 'Arsip Produk' ? onClickMenu[0].name === text.name ? <StorageIcon sx={{ color: 'white' }} /> : <StorageOutlinedIcon sx={{ color: onClickMenu[0].name === text.name && 'white' }} /> 
-                                                        : text.name === 'History Chat' ? onClickMenu[0].name === text.name ? <WhatsAppIcon sx={{ color: 'white' }} /> : <WhatsAppIcon sx={{ color: onClickMenu[0].name === text.name && 'white' }} /> : ''}
+                                                        : text.name === 'Arsip Produk' ? onClickMenu[0].name === text.name ? <StorageIcon sx={{ color: 'white' }} /> : <StorageOutlinedIcon sx={{ color: onClickMenu[0].name === text.name && 'white' }} />
+                                                            : text.name === 'History Chat' ? onClickMenu[0].name === text.name ? <WhatsAppIcon sx={{ color: 'white' }} /> : <WhatsAppIcon sx={{ color: onClickMenu[0].name === text.name && 'white' }} /> : ''}
                                             </ListItemIcon>
                                             <ListItemText primary={text.name} />
                                         </ListItemButton>

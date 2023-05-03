@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert, Box, Button, IconButton, InputAdornment, Modal, TextField, Typography } from '@mui/material'
+import { Box, Button, IconButton, InputAdornment, Modal, TextField, Typography } from '@mui/material'
 import Logo from '../../Assets/LogoCompany/AnthaGallery.jpeg'
 import { useDispatch, useSelector } from 'react-redux';
 import { authRegister, getUsers } from '../../Redux/slices/AuthReducer';
@@ -262,24 +262,24 @@ function Navbar() {
                     maxWidth: '1440px',
                     boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15)',
                     backgroundColor: 'white',
-                    height: { xs: '60px', sm: '65px', md: '80px', xl: '116px' }
+                    height: { xs: '60px', sm: '65px', md: '80px', xl: '116px' },
                 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', maxWidth: '1440px', px: { xs: '10px', sm: '100px' } }}>
                         <Link to={'/'} style={{ textDecoration: "none", color: "black" }} >
-                        <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center', cursor: 'pointer' }}>
-                            <Box sx={{ display: 'flex' }}>
-                                <Box sx={{ maxWidth: { xs: '20px', md: '35px', xl: '50px', sm: '30px' }, width: '100%', borderRadius: '50%' }} component={'img'} src={Logo} />
+                            <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center', cursor: 'pointer' }}>
+                                <Box sx={{ display: 'flex' }}>
+                                    <Box sx={{ maxWidth: { xs: '20px', md: '35px', xl: '50px', sm: '30px' }, width: '100%', borderRadius: '50%' }} component={'img'} src={Logo} />
+                                </Box>
+                                <Box sx={{ display: 'flex' }}>
+                                    <Typography sx={{ color: '#FFD12D', fontSize: { xs: '15px', md: '20px', xl: '24px' }, fontWeight: '39px', lineHeight: '39px', fontFamily: 'Axiforma' }}>Antha</Typography>
+                                    <Typography sx={{ color: 'black', fontSize: { xs: '15px', md: '20px', xl: '24px' }, fontWeight: '39px', lineHeight: '39px', fontFamily: 'Axiforma' }}>Gallery</Typography>
+                                </Box>
                             </Box>
-                            <Box sx={{ display: 'flex' }}>
-                                <Typography sx={{ color: '#FFD12D', fontSize: { xs: '15px', md: '20px', xl: '24px' }, fontWeight: '39px', lineHeight: '39px', fontFamily: 'Axiforma' }}>Antha</Typography>
-                                <Typography sx={{ color: 'black', fontSize: { xs: '15px', md: '20px', xl: '24px' }, fontWeight: '39px', lineHeight: '39px', fontFamily: 'Axiforma' }}>Gallery</Typography>
-                            </Box>
-                        </Box>
                         </Link>
                         {users === undefined || users === null || Object.keys(users).length === 0 ?
                             <Box sx={{ display: 'flex', gap: { xs: '5px', sm: '10px', md: '28px' } }}>
-                                <Button onClick={handleOpenLogin} variant='outlined' sx={{ color: 'black', fontSize: { xs: '7px', sm: '10px', md: '13px', xl: '16px' }, width: '100%' }}>Login</Button>
-                                <Button onClick={handleOpenRegister} variant='contained' color='success' sx={{ fontSize: { xs: '7px', sm: '10px', md: '13px', xl: '16px' }, width: '100%' }}>Register</Button>
+                                <Button onClick={handleOpenLogin} variant='contained' sx={{ color: 'black', fontSize: { xs: '7px', sm: '10px', md: '13px', xl: '16px' }, width: '100%', backgroundColor: 'white', textTransform: 'none', borderRadius: '8px', '&:hover': { backgroundColor: 'white' } }}>Login</Button>
+                                <Button onClick={handleOpenRegister} variant='contained' sx={{ fontSize: { xs: '7px', sm: '10px', md: '13px', xl: '16px' }, width: '100%', backgroundColor: 'black', color: 'white', textTransform: 'none', borderRadius: '8px', '&:hover': { backgroundColor: 'black' } }}>Register</Button>
                             </Box>
                             :
                             <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
@@ -291,14 +291,14 @@ function Navbar() {
                                         <Button onClick={handleNavigateAdmin} sx={{
                                             backgroundColor: 'black', color: 'white', width: { md: '121px', sm: '121px', xs: '95px', xl: '100%' }, height: { md: '40px', sm: '40px', xs: '30px', xl: '100%' }, display: 'flex', p: 2, gap: '8px', borderRadius: '8px', ":hover": {
                                                 bgcolor: "black"
-                                            }
+                                            }, textTransform: 'none'
                                         }} variant='contained'>
                                             <HomeOutlinedIcon sx={{ width: { md: '24px', sm: '24px', xs: '18px' }, height: { md: '24px', sm: '24px', xs: '18px' } }} />
                                             <Typography sx={{ fontSize: { md: '14px', sm: '14px', xs: '12px' } }}>
                                                 Dashboard
                                             </Typography>
                                         </Button>
-                                        <Button onClick={(e) => handleLogout(e)} variant='outlined' color='error'>Logout</Button>
+                                        <Button onClick={(e) => handleLogout(e)} variant='outlined' color='error' sx={{ textTransform: 'none' }}>Logout</Button>
                                     </Box>
                                     :
                                     <Box sx={{ display: 'flex', gap: '10px' }}>
