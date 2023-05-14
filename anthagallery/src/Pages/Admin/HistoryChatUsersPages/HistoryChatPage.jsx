@@ -19,7 +19,6 @@ function CustomPagination() {
             shape="rounded"
             page={page + 1}
             count={pageCount}
-            // @ts-expect-error
             renderItem={(props2) => <PaginationItem {...props2} disableRipple />}
             onChange={(event, value) => apiRef.current.setPage(value - 1)}
         />
@@ -31,15 +30,22 @@ function HistoryChatPage() {
     const dataHistoryChat = useSelector(state => state.admin.getDataHistoryChat);
     React.useEffect(() => {
         dispatch(getAllHistoryChat())
-        // getDataHistoryChat()
     }, [])
 
-    console.log(dataHistoryChat);
 
     const columns = [
-        { field: 'userName', headerName: 'Nama User', flex: 1 },
-        { field: 'product_name', headerName: 'Nama Produk', flex: 1 },
+        { field: 'userName', headerName: 'Nama User', flex: 1, },
+        { field: 'product_name', headerName: 'Nama Produk', width: 200 },
         { field: 'chat_users', headerName: 'Chat User', flex: 1 },
+        {
+            field: 'createdAt', headerName: 'Tanggal', flex: 1,
+                valueGetter: (params) => {
+                const date = new Date(params.row.createdAt);
+                const formattedDate = date.toLocaleDateString();
+                const formattedTime = date.toLocaleTimeString();
+                return `${formattedDate} | ${formattedTime}`;
+            },
+        },
     ];
     return (
         <>

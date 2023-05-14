@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCategoryById, getProductByCategoryId } from '../../Redux/slices/UserReducer';
 
 function Products() {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const { id } = useParams();
     const dataProduct = useSelector(state => state.user.getDataProductByCategorySingle)
     const dataCategory = useSelector(state => state.user.getDataCategoriesSingle)
