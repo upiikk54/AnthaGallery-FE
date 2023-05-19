@@ -125,7 +125,11 @@ function CategoryAdmin() {
                                     <Typography sx={{ color: '#6D7280', fontSize: '18px' }}>Kamu belum memiliki kategori</Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <Button onClick={handleAddCategory} variant='contained' color='primary' sx={{ width: '131px', height: '48px', borderRadius: '9px' }}>Tambahkan</Button>
+                                    <Button onClick={handleAddCategory} variant='contained' sx={{
+                                        width: '131px', height: '48px', backgroundColor: 'black', borderRadius: '9px', ":hover": {
+                                            bgcolor: "black"
+                                        }
+                                    }}>Tambahkan</Button>
                                 </Box>
                             </Box>
                         </Box>
