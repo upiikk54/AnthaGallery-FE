@@ -76,7 +76,7 @@ function ProductAdmin() {
             const createResponse = createRequest.data;
 
             if (createResponse.status) {
-                enqueueSnackbar(`${createResponse.message}`, { variant: 'success', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 3000 });
+                enqueueSnackbar(`Produk berhasil diarsipkan`, { variant: 'success', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 3000 });
                 handleCloseModalArchives()
                 getProductArchives()
             }
@@ -182,7 +182,7 @@ function ProductAdmin() {
                                             </Box>
                                         </Box>
                                         <Box className='admin-toggle' sx={{ display: 'flex', gap: '8px' }}>
-                                            <Tooltip title="Edit">
+                                            <Tooltip title="Arsip">
                                                 <IconButton onClick={() => handleOpenModalArchives(data._id)} sx={{ color: 'black' }}>
                                                     <StorageIcon />
                                                 </IconButton>

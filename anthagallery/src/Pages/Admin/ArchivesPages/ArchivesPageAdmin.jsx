@@ -65,7 +65,7 @@ function ArchivesPageAdmin() {
             const createResponse = createRequest.data;
 
             if (createResponse.status) {
-                enqueueSnackbar(`${createResponse.message}`, { variant: 'success', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 3000 });
+                enqueueSnackbar(`Produk berhasil dikeluarkan dari arsip.`, { variant: 'success', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 3000 });
                 handleCloseModalArchives()
                 getProductArchives()
             }

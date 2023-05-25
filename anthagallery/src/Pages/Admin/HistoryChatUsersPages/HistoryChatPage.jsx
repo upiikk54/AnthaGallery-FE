@@ -34,9 +34,9 @@ function HistoryChatPage() {
 
 
     const columns = [
-        { field: 'userName', headerName: 'Nama User', flex: 1, },
+        { field: 'userName', headerName: 'Nama Costumer', flex: 1, },
         { field: 'product_name', headerName: 'Nama Produk', width: 200 },
-        { field: 'chat_users', headerName: 'Chat User', flex: 1 },
+        { field: 'chat_users', headerName: 'Chat Costumer', flex: 1 },
         {
             field: 'createdAt', headerName: 'Tanggal', flex: 1,
                 valueGetter: (params) => {
@@ -90,7 +90,7 @@ function HistoryChatPage() {
                             <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                                     <Box component={'img'} src={empty} sx={{ width: '272px', height: '272px' }} />
-                                    <Typography sx={{ color: '#6D7280', fontSize: '18px' }}>Kamu tidak memiliki chat dari user</Typography>
+                                    <Typography sx={{ color: '#6D7280', fontSize: '18px' }}>Kamu tidak memiliki chat dari costumer</Typography>
                                 </Box>
                             </Box>
                         </Box>

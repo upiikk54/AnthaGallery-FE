@@ -41,16 +41,13 @@ code {
   padding-top: 50px;
   color: white;
 }
+
 .swiper-container-detailProduct .swiper-button-prev:after {
-  padding-left: 5px;
-  padding-top: 5px;
-  color: white;
+  display: none;
 }
 
 .swiper-container-detailProduct .swiper-button-next:after {
-  padding-top: 5px;
-  padding-right: 5px;
-  color: white;
+  display: none;
 }
 
 .swiper-pagination-bullets .swiper-pagination-bullet, .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {

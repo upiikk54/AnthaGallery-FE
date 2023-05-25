@@ -21,7 +21,7 @@ function Footer() {
                     mt: { xs: '50px', sm: '80px', md: '156px', xl: '200px' },
                     height: '100%',
                 }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', maxWidth: '1440px', px: { xs: '16px', sm: '100px' }, flexWrap: 'wrap', my: '100px' }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', maxWidth: '1440px', px: { xs: '16px', sm: '100px' }, flexWrap: 'wrap', mb: '100px' }}>
                         <Box sx={{ display: 'flex', flexDirection: 'column', width: '287px', gap: {xs: '14px', sm: '20px'} }}>
                             <Box sx={{ display: 'flex' }}>
                                 <Typography sx={{ color: '#FFD12D', fontSize: { xs: '15px', md: '20px', xl: '24px' }, fontWeight: '39px', lineHeight: '39px', fontFamily: 'Axiforma' }}>Antha</Typography>

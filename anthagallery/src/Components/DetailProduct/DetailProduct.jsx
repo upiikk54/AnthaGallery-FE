@@ -19,6 +19,7 @@ function DetailProduct() {
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
     const theme = useTheme();
+    const sm = useMediaQuery(theme.breakpoints.up('sm'));
     const md = useMediaQuery(theme.breakpoints.up('md'));
     const lg = useMediaQuery(theme.breakpoints.up('lg'));
 
@@ -63,6 +64,7 @@ function DetailProduct() {
             enqueueSnackbar(`${response.message}`, { variant: 'error', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 3000 });
         }
     };
+    const maxCharacters = 20;
 
     return (
         <>
@@ -75,14 +77,14 @@ function DetailProduct() {
                     display: 'flex', flexDirection: 'column', ml: '135px', mr: '135px', mt: '58px', width: '100%',
                     maxWidth: '1440px', gap: { xs: '28px', sm: '28px', md: '36px' }
                 }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '1440px', }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '1440px', flexWrap: 'wrap', justifyContent: {xs: 'center', sm: 'unset'} }}>
                         <Link
                             component="button"
                             variant="body2"
                             onClick={handleBackProduct} sx={{ textDecoration: "none", color: "black" }}>
-                            <Typography sx={{ fontWeight: 400, fontSize: { xs: '14px', sm: '14px', md: '16px' }, fontFamily: 'Axiforma' }}>{dataProduct.product_name} / </Typography>
+                            <Typography sx={{ fontWeight: 400, fontSize: { xs: '14px', sm: '14px', md: '16px' }, fontFamily: 'Axiforma',textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', maxWidth: {xs: '100vw' , sm: '148px', md: '267px', lg: '362px' }  }}>{dataProduct.product_name}</Typography>
                         </Link>
-                        <Typography sx={{ fontWeight: 400, fontSize: { xs: '14px', sm: '14px', md: '16px' }, fontFamily: 'Axiforma', color: '#698269' }}>Detail Product</Typography>
+                        <Typography sx={{ fontWeight: 400, fontSize: { xs: '14px', sm: '14px', md: '16px' }, fontFamily: 'Axiforma', color: '#698269' }}> / Detail Product</Typography>
                     </Box>
                     <Box sx={{ display: 'flex', gap: '30px', flexWrap: { xs: 'wrap', sm: 'unset' } }}>
                         <Box className='swiper-container-detailProduct'>
@@ -95,7 +97,7 @@ function DetailProduct() {
                                     delay: 2000,
                                     disableOnInteraction: false,
                                 }}
-                                style={{ maxWidth: lg ? '570px' : md ? '450px' : '320px', borderRadius: '16px' }}
+                                style={{ maxWidth: lg ? '570px' : md ? '450px' : sm ? '320px' : '100vw', borderRadius: '16px' }}
                                 loop={true}
                             >
                                 {dataProduct.image ? dataProduct.image.map((data, index) => {
@@ -114,7 +116,7 @@ function DetailProduct() {
                                 </Box>
                                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '7px', sm: '16px' } }}>
                                     <Typography sx={{ fontWeight: 600, fontSize: { sm: '14px', md: '23px', xl: '38px' }, fontFamily: 'Axiforma' }}>{dataProduct.product_name}</Typography>
-                                    <Typography sx={{ fontWeight: 400, fontSize: { sm: '7px', md: '10px', xl: '15px' }, fontFamily: 'Axiforma', maxWidth: '570px', maxHeight: { xs: '90px', sm: '86px' } }}>{dataProduct.product_description}</Typography>
+                                    <Typography sx={{ fontWeight: 400, fontSize: { sm: '7px', md: '10px', xl: '15px' }, fontFamily: 'Axiforma', maxWidth: '570px'}}>{dataProduct.product_description}</Typography>
                                     <Typography sx={{ fontWeight: 600, fontSize: { sm: '19px', md: '25px', xl: '32px' }, fontFamily: 'Axiforma' }}>Rp. {dataProduct.product_price}</Typography>
                                 </Box>
                             </Box>

@@ -264,7 +264,7 @@ function Navbar() {
                     backgroundColor: 'white',
                     height: { xs: '60px', sm: '65px', md: '80px', xl: '116px' },
                 }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', maxWidth: '1440px', px: { xs: '10px', sm: '100px' } }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', maxWidth: '1440px', px: { sm: '100px' } }}>
                         <Link to={'/'} style={{ textDecoration: "none", color: "black" }} >
                             <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center', cursor: 'pointer' }}>
                                 <Box sx={{ display: 'flex' }}>
