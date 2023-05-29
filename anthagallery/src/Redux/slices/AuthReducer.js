@@ -5,7 +5,8 @@ import {
 import axios from "axios";
 // import { parseJwt } from "../../Helpers/ParseJWT";
 // import { encryptLocalStorage } from '../../Helpers/Encryption/encryptLocalStorage'
-const local_url = "http://localhost:8987";
+// const local_url = "http://localhost:8987";
+const local_url = "http://47.254.255.126:8987";
 
 export const authRegister = createAsyncThunk(
     'auth/Register',

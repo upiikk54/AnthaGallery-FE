@@ -42,7 +42,7 @@ function ProductAdmin() {
     const getProductArchives = async () => {
         try {
             const dataProduct = await axios.get(
-                `http://localhost:8987/api/v1/product/read?archives=false`
+                `http://47.254.255.126:8987/api/v1/product/read?archives=false`
             )
 
             const payloadData = await dataProduct.data.data.get_all_product;
@@ -63,7 +63,7 @@ function ProductAdmin() {
             postPayload.append("archives", archives);
 
             const createRequest = await axios.put(
-                `http://localhost:8987/api/v1/product/update/${idProduct}`,
+                `http://47.254.255.126:8987/api/v1/product/update/${idProduct}`,
                 postPayload,
                 {
                     headers: {

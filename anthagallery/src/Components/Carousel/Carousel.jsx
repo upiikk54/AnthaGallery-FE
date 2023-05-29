@@ -12,25 +12,25 @@ function Carousel() {
     return (
         <>
             <Swiper
-                modules={[Navigation, Pagination, Autoplay]}
+                modules={[Navigation, Pagination]}
                 pagination={true}
                 navigation={true}
                 slidesPerView={1}
-                autoplay={{
-                    delay: 2500,
-                    disableOnInteraction: false,
-                }}
+                // autoplay={{
+                //     delay: 2500,
+                //     disableOnInteraction: false,
+                // }}
                 style={{ maxWidth: '1440px' }}
-                loop={true}
+            // loop={true}
             >
-                <SwiperSlide style={{ width: '100%', maxHeight: { xl: '686px', md: '600px', sm: '445px', xs: '210px' } }}>
-                    <Box component={'img'} src={foto1} sx={{ width: '100%', height: { xl: '686px', md: '600px', sm: '445px', xs: '210px' }, objectFit: 'cover', objectPosition: 'contain' }} />
+                <SwiperSlide style={{ width: '100%', maxHeight: { xl: '450px', md: '425px', sm: '445px', xs: '210px' } }}>
+                    <Box component={'img'} src={foto1} sx={{ width: '100%', height: { xl: '450px', md: '425px', sm: '445px', xs: '210px' }, objectFit: 'cover', objectPosition: 'contain' }} />
                 </SwiperSlide>
-                <SwiperSlide style={{ width: '100%', maxHeight: { xl: '686px', md: '600px', sm: '445px', xs: '210px' } }}>
-                    <Box component={'img'} src={foto1} sx={{ width: '100%', height: { xl: '686px', md: '600px', sm: '445px', xs: '210px' }, objectFit: 'cover', objectPosition: 'contain' }} />
+                <SwiperSlide style={{ width: '100%', maxHeight: { xl: '450px', md: '425px', sm: '445px', xs: '210px' } }}>
+                    <Box component={'img'} src={foto1} sx={{ width: '100%', height: { xl: '450px', md: '425px', sm: '445px', xs: '210px' }, objectFit: 'cover', objectPosition: 'contain' }} />
                 </SwiperSlide>
-                <SwiperSlide style={{ width: '100%', maxHeight: { xl: '686px', md: '600px', sm: '445px', xs: '210px' } }}>
-                    <Box component={'img'} src={foto1} sx={{ width: '100%', height: { xl: '686px', md: '600px', sm: '445px', xs: '210px' }, objectFit: 'cover', objectPosition: 'contain' }} />
+                <SwiperSlide style={{ width: '100%', maxHeight: { xl: '450px', md: '425px', sm: '445px', xs: '210px' } }}>
+                    <Box component={'img'} src={foto1} sx={{ width: '100%', height: { xl: '450px', md: '425px', sm: '445px', xs: '210px' }, objectFit: 'cover', objectPosition: 'contain' }} />
                 </SwiperSlide>
             </Swiper>
         </>

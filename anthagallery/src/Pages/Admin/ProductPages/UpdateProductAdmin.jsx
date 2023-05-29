@@ -123,7 +123,7 @@ function UpdateProductAdmin() {
             });
 
             const createRequest = await axios.put(
-                `http://localhost:8987/api/v1/product/update/${id}`,
+                `http://47.254.255.126:8987/api/v1/product/update/${id}`,
                 postPayload,
                 {
                     headers: {

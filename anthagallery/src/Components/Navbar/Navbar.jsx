@@ -82,7 +82,7 @@ function Navbar() {
             }
 
             const loginRequest = await axios.post(
-                "http://localhost:8987/api/v1/login",
+                "http://47.254.255.126:8987/api/v1/login",
                 userToLoginPayload
             )
             const loginResponse = loginRequest.data;

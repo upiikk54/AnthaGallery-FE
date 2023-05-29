@@ -45,7 +45,7 @@ function DetailProduct() {
             }
 
             const postPayload = await axios.post(
-                "http://localhost:8987/api/v1/chatHistory/create",
+                "http://47.254.255.126:8987/api/v1/chatHistory/create",
                 chatUsersPayload,
                 {
                     headers: {
@@ -64,7 +64,6 @@ function DetailProduct() {
             enqueueSnackbar(`${response.message}`, { variant: 'error', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 3000 });
         }
     };
-    const maxCharacters = 20;
 
     return (
         <>

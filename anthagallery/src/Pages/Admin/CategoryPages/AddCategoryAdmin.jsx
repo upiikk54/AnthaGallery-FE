@@ -85,7 +85,7 @@ function AddCategoryAdmin() {
                 postPayload.append("image", element);
             });
             const createRequest = await axios.post(
-                "http://localhost:8987/api/v1/category/create",
+                "http://47.254.255.126:8987/api/v1/category/create",
                 postPayload,
                 {
                     headers: {
