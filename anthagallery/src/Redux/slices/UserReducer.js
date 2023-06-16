@@ -4,7 +4,7 @@ import {
 } from "@reduxjs/toolkit";
 import axios from "axios";
 // const local_url = "http://localhost:8987";
-const local_url = "http://47.254.255.126:8987";
+const local_url = "https://anthagallery.site";
 
 // Get all category
 export const getAllCategories = createAsyncThunk(

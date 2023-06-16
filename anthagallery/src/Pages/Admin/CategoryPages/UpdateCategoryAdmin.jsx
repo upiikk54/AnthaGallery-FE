@@ -108,7 +108,7 @@ function UpdateCategoryAdmin() {
             });
 
             const createRequest = await axios.put(
-                `http://47.254.255.126:8987/api/v1/category/update/${id}`,
+                `https://anthagallery.site/api/v1/category/update/${id}`,
                 postPayload,
                 {
                     headers: {

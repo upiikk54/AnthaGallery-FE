@@ -114,6 +114,7 @@ const Dashboard = (props) => {
     const handleLogout = () => {
         localStorage.removeItem("token");
         navigate('/')
+        window.location.reload()
     };
 
     const users = useSelector(state => state.auth.dataUsers)

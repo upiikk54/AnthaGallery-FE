@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Button, IconButton, InputAdornment, Modal, TextField, Typography } from '@mui/material'
+import { Box, Button, Drawer, IconButton, InputAdornment, List, ListItem, ListItemButton, Modal, TextField, Typography } from '@mui/material'
 import Logo from '../../Assets/LogoCompany/AnthaGallery.jpeg'
 import { useDispatch, useSelector } from 'react-redux';
 import { authRegister, getUsers } from '../../Redux/slices/AuthReducer';
@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useSnackbar } from 'notistack'
 import axios from 'axios';
+import ReorderIcon from '@mui/icons-material/Reorder';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 
 function Navbar() {
@@ -82,7 +83,7 @@ function Navbar() {
             }
 
             const loginRequest = await axios.post(
-                "http://47.254.255.126:8987/api/v1/login",
+                "https://anthagallery.site/api/v1/login",
                 userToLoginPayload
             )
             const loginResponse = loginRequest.data;
@@ -116,6 +117,73 @@ function Navbar() {
         users.role === "admin" ? navigate('/admin/dashboard') : navigate('/')
     }
 
+    const [state, setState] = React.useState({
+        right: false,
+    });
+
+    const toggleDrawer = (anchor, open) => (event) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return;
+        }
+
+        setState({ ...state, [anchor]: open });
+    };
+    const list = (anchor) => (
+        <Box
+            sx={{ width: anchor === 'right' ? 250 : 250 }}
+            role="presentation"
+            onClick={toggleDrawer(anchor, false)}
+            onKeyDown={toggleDrawer(anchor, false)}
+        >
+            <List>
+                <ListItem disablePadding>
+                    <ListItemButton>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                            <Link to={'/'} style={{ textDecoration: "none", color: "black" }} >
+                                <Box sx={{ maxWidth: { xxs: '35px' }, width: '100%' }} component={'img'} src={Logo} />
+                            </Link>
+                            <Button onClick={handleNavigateAdmin} sx={{
+                                backgroundColor: 'black', color: 'white', width: '100%', height: { md: '40px', sm: '40px', xs: '30px', xl: '100%' }, display: 'flex', p: 2, gap: '8px', borderRadius: '8px', ":hover": {
+                                    bgcolor: "black"
+                                }, textTransform: 'none'
+                            }} variant='contained'>
+                                <HomeOutlinedIcon sx={{ width: { md: '24px', sm: '24px', xs: '18px' }, height: { md: '24px', sm: '24px', xs: '18px' } }} />
+                                <Typography sx={{ fontSize: { md: '14px', sm: '14px', xs: '12px' } }}>
+                                    Dashboard
+                                </Typography>
+                            </Button>
+                            <Button onClick={(e) => handleLogout(e)} variant='outlined' color='error' sx={{ textTransform: 'none', fontSize: { md: '14px', sm: '14px', xs: '12px', xl: '17px' } }}>Logout</Button>
+                        </Box>
+                    </ListItemButton>
+                </ListItem>
+            </List>
+        </Box>
+    );
+
+    const listCostumer = (anchor) => (
+        <Box
+            sx={{ width: anchor === 'right' ? 250 : 250 }}
+            role="presentation"
+            onClick={toggleDrawer(anchor, false)}
+            onKeyDown={toggleDrawer(anchor, false)}
+        >
+            <List>
+                <ListItem disablePadding>
+                    <ListItemButton>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                            <Link to={'/'} style={{ textDecoration: "none", color: "black" }} >
+                                <Box sx={{ maxWidth: { xxs: '35px' }, width: '100%' }} component={'img'} src={Logo} />
+                            </Link>
+                            <Typography sx={{ color: 'black', fontSize: { xs: '20px', md: '20px', xl: '24px' }, fontWeight: '39px', lineHeight: '39px', fontFamily: 'Axiforma', textAlign: 'center' }}>
+                                Halo {users.userName}!
+                            </Typography>
+                            <Button onClick={(e) => handleLogout(e)} variant='outlined' color='error' sx={{ textTransform: 'none', fontSize: { md: '14px', sm: '14px', xs: '12px', xl: '17px' } }}>Logout</Button>
+                        </Box>
+                    </ListItemButton>
+                </ListItem>
+            </List>
+        </Box>
+    );
 
     return (
         <>
@@ -264,7 +332,7 @@ function Navbar() {
                     backgroundColor: 'white',
                     height: { xs: '60px', sm: '65px', md: '80px', xl: '116px' },
                 }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', maxWidth: '1440px', px: { sm: '100px' } }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', maxWidth: '1440px', px: { sm: '100px', xs: '25px' } }}>
                         <Link to={'/'} style={{ textDecoration: "none", color: "black" }} >
                             <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center', cursor: 'pointer' }}>
                                 <Box sx={{ display: 'flex' }}>
@@ -287,26 +355,63 @@ function Navbar() {
                                     <Box sx={{ maxWidth: { xs: '20px', md: '35px', xl: '50px', sm: '30px' }, width: '100%', borderRadius: '50%' }} component={'img'} src={users.image} />
                                 </Box>
                                 {users !== undefined && users.role === "admin" ?
-                                    <Box sx={{ display: 'flex', gap: '10px' }}>
-                                        <Button onClick={handleNavigateAdmin} sx={{
-                                            backgroundColor: 'black', color: 'white', width: { md: '121px', sm: '121px', xs: '95px', xl: '100%' }, height: { md: '40px', sm: '40px', xs: '30px', xl: '100%' }, display: 'flex', p: 2, gap: '8px', borderRadius: '8px', ":hover": {
-                                                bgcolor: "black"
-                                            }, textTransform: 'none'
-                                        }} variant='contained'>
-                                            <HomeOutlinedIcon sx={{ width: { md: '24px', sm: '24px', xs: '18px' }, height: { md: '24px', sm: '24px', xs: '18px' } }} />
-                                            <Typography sx={{ fontSize: { md: '14px', sm: '14px', xs: '12px' } }}>
-                                                Dashboard
-                                            </Typography>
-                                        </Button>
-                                        <Button onClick={(e) => handleLogout(e)} variant='outlined' color='error' sx={{ textTransform: 'none' }}>Logout</Button>
+                                    <Box>
+                                        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                                            <Box sx={{ display: 'flex', gap: '10px' }}>
+                                                <Button onClick={handleNavigateAdmin} sx={{
+                                                    backgroundColor: 'black', color: 'white', width: { md: '121px', sm: '121px', xs: '95px', xl: '100%' }, height: { md: '40px', sm: '40px', xs: '30px', xl: '100%' }, display: 'flex', p: 2, gap: '8px', borderRadius: '8px', ":hover": {
+                                                        bgcolor: "black"
+                                                    }, textTransform: 'none'
+                                                }} variant='contained'>
+                                                    <HomeOutlinedIcon sx={{ width: { md: '24px', sm: '24px', xs: '18px' }, height: { md: '24px', sm: '24px', xs: '18px' } }} />
+                                                    <Typography sx={{ fontSize: { md: '14px', sm: '14px', xs: '12px' } }}>
+                                                        Dashboard
+                                                    </Typography>
+                                                </Button>
+                                                <Button onClick={(e) => handleLogout(e)} variant='outlined' color='error' sx={{ textTransform: 'none', fontSize: { md: '14px', sm: '14px', xs: '12px', xl: '17px' } }}>Logout</Button>
+                                            </Box>
+                                        </Box>
+                                        <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
+                                            {['right'].map((anchor) => (
+                                                <React.Fragment key={anchor}>
+                                                    <ReorderIcon onClick={toggleDrawer(anchor, true)}>{anchor}</ReorderIcon>
+                                                    <Drawer
+                                                        anchor={anchor}
+                                                        open={state[anchor]}
+                                                        onClose={toggleDrawer(anchor, false)}
+                                                    >
+                                                        {list(anchor)}
+                                                    </Drawer>
+                                                </React.Fragment>
+                                            ))}
+                                        </Box>
                                     </Box>
                                     :
-                                    <Box sx={{ display: 'flex', gap: '10px' }}>
-                                        <Typography sx={{ color: 'black', fontSize: { xs: '15px', md: '20px', xl: '24px' }, fontWeight: '39px', lineHeight: '39px', fontFamily: 'Axiforma' }}>
-                                            Halo {users.userName}!
-                                        </Typography>
-                                        <Button onClick={(e) => handleLogout(e)} variant='outlined' color='error'>Logout</Button>
+                                    <Box>
+                                        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                                            <Box sx={{ display: 'flex', gap: '10px' }}>
+                                                <Typography sx={{ color: 'black', fontSize: { xs: '10px', md: '20px', xl: '24px' }, fontWeight: '39px', lineHeight: '39px', fontFamily: 'Axiforma' }}>
+                                                    Halo {users.userName}!
+                                                </Typography>
+                                                <Button onClick={(e) => handleLogout(e)} variant='outlined' color='error' sx={{ textTransform: 'none', fontSize: { md: '14px', sm: '14px', xs: '12px', xl: '17px' } }}>Logout</Button>
+                                            </Box>
+                                        </Box>
+                                        <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
+                                            {['right'].map((anchor) => (
+                                                <React.Fragment key={anchor}>
+                                                    <ReorderIcon onClick={toggleDrawer(anchor, true)}>{anchor}</ReorderIcon>
+                                                    <Drawer
+                                                        anchor={anchor}
+                                                        open={state[anchor]}
+                                                        onClose={toggleDrawer(anchor, false)}
+                                                    >
+                                                        {listCostumer(anchor)}
+                                                    </Drawer>
+                                                </React.Fragment>
+                                            ))}
+                                        </Box>
                                     </Box>
+
                                 }
                             </Box>
                         }

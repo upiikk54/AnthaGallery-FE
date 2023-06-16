@@ -45,7 +45,7 @@ function DetailProduct() {
             }
 
             const postPayload = await axios.post(
-                "http://47.254.255.126:8987/api/v1/chatHistory/create",
+                "https://anthagallery.site/api/v1/chatHistory/create",
                 chatUsersPayload,
                 {
                     headers: {
