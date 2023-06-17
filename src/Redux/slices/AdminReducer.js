@@ -4,7 +4,8 @@ import {
 } from "@reduxjs/toolkit";
 import axios from "axios";
 // const local_url = "http://localhost:8987";
-const local_url = "https://anthagallery.site";
+// const local_url = "https://anthagallery.site";
+const local_url = "https://anthagallery-server.up.railway.app";
 
 // Get all product
 export const getAllProducts = createAsyncThunk(

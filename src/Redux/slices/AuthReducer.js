@@ -6,7 +6,8 @@ import axios from "axios";
 // import { parseJwt } from "../../Helpers/ParseJWT";
 // import { encryptLocalStorage } from '../../Helpers/Encryption/encryptLocalStorage'
 // const local_url = "http://localhost:8987";
-const local_url = "https://anthagallery.site";
+// const local_url = "https://anthagallery.site";
+const local_url = "https://anthagallery-server.up.railway.app";
 
 export const authRegister = createAsyncThunk(
     'auth/Register',

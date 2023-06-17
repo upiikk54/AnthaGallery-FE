@@ -123,7 +123,7 @@ function UpdateProductAdmin() {
             });
 
             const createRequest = await axios.put(
-                `https://anthagallery.site/api/v1/product/update/${id}`,
+                `https://anthagallery-server.up.railway.app/api/v1/product/update/${id}`,
                 postPayload,
                 {
                     headers: {

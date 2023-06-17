@@ -45,7 +45,7 @@ function DetailProduct() {
             }
 
             const postPayload = await axios.post(
-                "https://anthagallery.site/api/v1/chatHistory/create",
+                "https://anthagallery-server.up.railway.app/api/v1/chatHistory/create",
                 chatUsersPayload,
                 {
                     headers: {

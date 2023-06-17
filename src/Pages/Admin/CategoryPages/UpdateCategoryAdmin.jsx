@@ -108,7 +108,7 @@ function UpdateCategoryAdmin() {
             });
 
             const createRequest = await axios.put(
-                `https://anthagallery.site/api/v1/category/update/${id}`,
+                `https://anthagallery-server.up.railway.app/api/v1/category/update/${id}`,
                 postPayload,
                 {
                     headers: {
