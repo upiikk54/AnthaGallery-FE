@@ -35,7 +35,7 @@ export const getProductByCategoryId = createAsyncThunk(
         try {
             const response = await axios({
                 method: "GET",
-                url: `${local_url}/api/v1/product/readCategory/${category_id}?archives=false`,
+                url: `${local_url}/api/v1/product/readCategory/${category_id}`,
                 headers: {
                     Accept: "application/json",
                     "Content-type": "application/json",
