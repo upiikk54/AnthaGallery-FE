@@ -49,7 +49,11 @@ function CategoryProduct() {
                                 return (
                                     <Link to={`/category/${data._id}`} style={{ textDecoration: "none", color: "black" }}>
                                         <Box sx={{ position: 'relative' }} key={index}>
-                                            <Card sx={{ minWidth: { xs: '77px', sm: '140px', md: '230px', xl: 270 }, background: 'rgba(16, 16, 16, 0.1)', borderRadius: '16px', height: { xs: '99px', sm: '158px', md: '280px', xl: 338 }, }}>
+                                            <Card sx={{
+                                                minWidth: { xs: '77px', sm: '140px', md: '230px', xl: 270 }, background: 'rgba(16, 16, 16, 0.1)', borderRadius: '16px', height: '100%', ":hover": {
+                                                    transform: 'scale(1.1)'
+                                                }, transition: 'transform 0.5s'
+                                            }}>
                                                 <Box sx={{ display: 'flex', gap: '20px', flexDirection: 'column', pb: '10px' }}>
                                                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                                                         <Box sx={{ maxWidth: { xs: '50px', sm: '79px', md: '125px', xl: '164px' }, width: '100%', }} component={'img'} src={data.image} />
