@@ -13,7 +13,6 @@ function Products() {
         dispatch(getCategoryById(id))
         dispatch(getProductByCategoryId(id))
     }, [])
-    console.log(dataProduct);
 
     return (
         <>

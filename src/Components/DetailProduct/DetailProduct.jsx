@@ -57,7 +57,7 @@ function DetailProduct() {
 
             if (CreateResponse.status) {
                 enqueueSnackbar(`${CreateResponse.message}`, { variant: 'success', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 3000 });
-                window.location.href = `https://wa.me/+6281882883109?text=Hallo%20kak%20apakah%20produk%20${dataProduct.product_name}%20ready%20`
+                window.location.href = `https://wa.me/+6281259526461?text=Hallo%20kak%20apakah%20produk%20${dataProduct.product_name}%20ready%20`
             }
         } catch (err) {
             const response = err.response.data;
