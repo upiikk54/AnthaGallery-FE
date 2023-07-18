@@ -31,7 +31,7 @@ function ArchivesPageAdmin() {
     const getProductArchives = async () => {
         try {
             const dataProduct = await axios.get(
-                `https://anthagallery-server.up.railway.app/api/v1/product/read?archives=true`
+                `https://anthagallerybe-server.up.railway.app/api/v1/product/read?archives=true`
             )
 
             const payloadData = await dataProduct.data.data.get_all_product;
@@ -52,7 +52,7 @@ function ArchivesPageAdmin() {
             postPayload.append("archives", archives);
 
             const createRequest = await axios.put(
-                `https://anthagallery-server.up.railway.app/api/v1/product/update/${idProduct}`,
+                `https://anthagallerybe-server.up.railway.app/api/v1/product/update/${idProduct}`,
                 postPayload,
                 {
                     headers: {

@@ -16,8 +16,6 @@ function UpdateProductAdmin() {
     const handleCancelProduct = () => {
         navigate('/admin/product')
     }
-
-    const [age, setAge] = React.useState('');
     const dispatch = useDispatch()
     const { id } = useParams();
 
@@ -85,7 +83,13 @@ function UpdateProductAdmin() {
     React.useEffect(() => {
         dispatch(getAllCategories())
     }, [])
-    const [categoryId, setCategoryId] = React.useState()
+
+    const [categoryId, setCategoryId] = React.useState(Object.keys(dataProduct).length !== 0 ? dataProduct.category_id._id : '')
+    const [categoryName, setCategoryName] = React.useState(Object.keys(dataProduct).length !== 0 ? dataProduct.category_id.category_name : '');
+    const handleChangeCategory = (e) => {
+        setCategoryName(e.target.value)
+    }
+
     const [productValue, setProductValue] = React.useState({
         productNameValue: '',
         productPriceValue: '',
@@ -123,7 +127,7 @@ function UpdateProductAdmin() {
             });
 
             const createRequest = await axios.put(
-                `https://anthagallery-server.up.railway.app/api/v1/product/update/${id}`,
+                `https://anthagallerybe-server.up.railway.app/api/v1/product/update/${id}`,
                 postPayload,
                 {
                     headers: {
@@ -137,7 +141,7 @@ function UpdateProductAdmin() {
 
             if (createResponse.status) {
                 enqueueSnackbar(`${createResponse.message}`, { variant: 'success', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 3000 });
-                navigate(`/admin/dashboard`);
+                navigate(`/admin/product`);
             }
         } catch (err) {
             const response = err.response.data;
@@ -214,22 +218,24 @@ function UpdateProductAdmin() {
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px', px: '36px', width: '100%', maxWidth: '1440px', }}>
                             <Typography sx={{ fontSize: '18px', fontWeight: 400, fontFamily: 'Axiforma' }}>Kategori</Typography>
                             <FormControl fullWidth>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={age}
-                                    onChange={handleChange}
-                                >
-                                    {Object.keys(dataCategories).length !== 0 ? dataCategories.map((item, index) => {
-                                        return (
-                                            <MenuItem
-                                                key={index}
-                                                onClick={() => setCategoryId(item._id)}
-                                                value={item._id}
-                                            >{item.category_name}</MenuItem>
-                                        )
-                                    }) : ''}
-                                </Select>
+                                {Object.keys(dataCategories).length !== 0 ?
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={categoryName}
+                                        onChange={handleChangeCategory}
+                                    >
+                                        {dataCategories.map((item, index) => {
+                                            return (
+                                                <MenuItem
+                                                    key={index}
+                                                    onClick={() => setCategoryId(item._id)}
+                                                    value={item.category_name}
+                                                >{item.category_name}</MenuItem>
+                                            )
+                                        })}
+                                    </Select>
+                                    : ''}
                             </FormControl>
                         </Box>
                         <Box sx={{ display: 'flex', gap: '36px', width: '100%', maxWidth: '1440px', justifyContent: 'center' }}>

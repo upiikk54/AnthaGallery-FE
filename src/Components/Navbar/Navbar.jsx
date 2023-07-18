@@ -83,7 +83,7 @@ function Navbar() {
             }
 
             const loginRequest = await axios.post(
-                "https://anthagallery-server.up.railway.app/api/v1/login",
+                "https://anthagallerybe-server.up.railway.app/api/v1/login",
                 userToLoginPayload
             )
             const loginResponse = loginRequest.data;

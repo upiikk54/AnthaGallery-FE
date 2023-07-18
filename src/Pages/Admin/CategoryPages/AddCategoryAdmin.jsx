@@ -85,7 +85,7 @@ function AddCategoryAdmin() {
                 postPayload.append("image", element);
             });
             const createRequest = await axios.post(
-                "https://anthagallery-server.up.railway.app/api/v1/category/create",
+                "https://anthagallerybe-server.up.railway.app/api/v1/category/create",
                 postPayload,
                 {
                     headers: {

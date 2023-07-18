@@ -109,7 +109,7 @@ function AddProductAdmin() {
                 postPayload.append("image", element);
             });
             const createRequest = await axios.post(
-                "https://anthagallery-server.up.railway.app/api/v1/product/create",
+                "https://anthagallerybe-server.up.railway.app/api/v1/product/create",
                 postPayload,
                 {
                     headers: {
