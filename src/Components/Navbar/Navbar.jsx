@@ -213,7 +213,7 @@ function Navbar() {
                             </Box>
                             <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px', justifyContent: 'center', alignItems: 'center' }}>
                                 <Typography sx={{ color: 'black', fontSize: { xl: '36px', md: '25px', sm: '20px', xs: '25px' }, fontWeight: 600, fontFamily: 'Axiforma' }}>Daftar ke Antha Gallery</Typography>
-                                <Typography sx={{ color: '#6D7280', fontSize: { xl: '20px', md: '15px', sm: '15px', xs: '15px' }, fontWeight: 400, fontFamily: 'Axiforma' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultrices etiam ornare tortor sit sed et faucibus a ac.</Typography>
+                                <Typography sx={{ color: '#6D7280', fontSize: { xl: '20px', md: '15px', sm: '15px', xs: '15px' }, fontWeight: 400, fontFamily: 'Axiforma' }}>Selamat datang di menu pendaftaran kami!</Typography>
                             </Box>
                         </Box>
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xl: '38px', md: '15px', sm: '13px', xs: '16px' } }}>
@@ -276,7 +276,7 @@ function Navbar() {
                             </Box>
                             <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px', justifyContent: 'center', alignItems: 'center' }}>
                                 <Typography sx={{ color: 'black', fontSize: { xl: '36px', md: '25px', sm: '20px', xs: '25px' }, fontWeight: 600, fontFamily: 'Axiforma' }}>Masuk ke Antha Gallery</Typography>
-                                <Typography sx={{ color: '#6D7280', fontSize: { xl: '20px', md: '15px', sm: '15px', xs: '15px' }, fontWeight: 400, fontFamily: 'Axiforma' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultrices etiam ornare tortor sit sed et faucibus a ac.</Typography>
+                                <Typography sx={{ color: '#6D7280', fontSize: { xl: '20px', md: '15px', sm: '15px', xs: '15px' }, fontWeight: 400, fontFamily: 'Axiforma' }}>Selamat datang! Silakan masukkan informasi akun Anda untuk melanjutkan.</Typography>
                             </Box>
                         </Box>
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xl: '38px', md: '15px', sm: '13px', xs: '16px' } }}>

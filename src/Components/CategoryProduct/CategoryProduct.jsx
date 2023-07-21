@@ -48,44 +48,38 @@ function CategoryProduct() {
                             dataCategories !== null && Object.keys(dataCategories).length !== 0 ? dataCategories.map((data, index) => {
                                 return (
                                     <Link to={`/category/${data._id}`} style={{ textDecoration: "none", color: "black" }}>
-                                        <Box sx={{ position: 'relative' }} key={index}>
-                                            <Card sx={{
-                                                minWidth: { xs: '77px', sm: '140px', md: '230px', xl: 270 }, background: 'rgba(16, 16, 16, 0.1)', borderRadius: '16px', height: '100%', ":hover": {
-                                                    transform: 'scale(1.1)'
-                                                }, transition: 'transform 0.5s'
-                                            }}>
-                                                <Box sx={{ display: 'flex', gap: '20px', flexDirection: 'column', pb: '10px' }}>
-                                                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                                        <Box sx={{ maxWidth: { xs: '50px', sm: '79px', md: '125px', xl: '164px' }, width: '100%', }} component={'img'} src={data.image} />
-                                                    </Box>
-                                                    <Box sx={{ display: 'flex', justifyContent: 'center', }}>
-                                                        <Typography sx={{ fontWeight: 600, fontSize: { xs: '10px', md: '27px', xl: '32px', sm: '15px' }, fontFamily: 'Axiforma', color: 'black' }}>{data.category_name}</Typography>
-                                                    </Box>
+                                        <Card key={index} sx={{
+                                            maxWidth: { xs: '77px', sm: '140px', md: '230px', xl: 270 }, maxHeight: { xs: '77px', sm: '140px', md: '230px', xl: 300 }, width: '100%', py: '10px', px: '10px',
+                                            minWidth: { xs: '77px', sm: '140px', md: '230px', xl: 270 }, minHeight: { xs: '77px', sm: '140px', md: '230px', xl: 300 }, background: 'rgba(16, 16, 16, 0.1)', borderRadius: '16px', height: '100%', ":hover": {
+                                                transform: 'scale(1.1)'
+                                            }, transition: 'transform 0.5s'
+                                        }}>
+                                            <Box sx={{ display: 'flex', justifyContent: 'center', height: '100%', width: '100%' }}>
+                                                <Box sx={{ display: 'flex', gap: '20px', flexDirection: 'column', justifyContent: 'space-between', height: '100%', width: '100%' }}>
+                                                    <Box sx={{ width: '100%', objectFit: 'contain', maxHeight: '60%' }} component={'img'} src={data.image} />
+                                                    <Typography sx={{ fontWeight: 600, fontSize: { xs: '10px', md: '27px', xl: '32px', sm: '15px' }, fontFamily: 'Axiforma', color: 'black', textAlign: 'center' }}>{data.category_name}</Typography>
                                                 </Box>
-                                            </Card>
-                                        </Box>
+                                            </Box>
+                                        </Card>
                                     </Link>
                                 )
                             }) : ''
                             : dataCategories !== null && Object.keys(dataCategories).length !== 0 ? dataCategories.slice(0, 8).map((data, index) => {
                                 return (
                                     <Link to={`/category/${data._id}`} style={{ textDecoration: "none", color: "black" }}>
-                                        <Box sx={{ position: 'relative' }} key={index}>
-                                            <Card sx={{
-                                                minWidth: { xs: '77px', sm: '140px', md: '230px', xl: 270 }, background: 'rgba(16, 16, 16, 0.1)', borderRadius: '16px', height: '100%', ":hover": {
-                                                    transform: 'scale(1.1)'
-                                                }, transition: 'transform 0.5s'
-                                            }}>
-                                                <Box sx={{ display: 'flex', gap: '20px', flexDirection: 'column', pb: '10px' }}>
-                                                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                                        <Box sx={{ maxWidth: { xs: '50px', sm: '79px', md: '125px', xl: '164px' }, width: '100%', }} component={'img'} src={data.image} />
-                                                    </Box>
-                                                    <Box sx={{ display: 'flex', justifyContent: 'center', }}>
-                                                        <Typography sx={{ fontWeight: 600, fontSize: { xs: '10px', md: '27px', xl: '32px', sm: '15px' }, fontFamily: 'Axiforma', color: 'black' }}>{data.category_name}</Typography>
-                                                    </Box>
+                                        <Card key={index} sx={{
+                                            maxWidth: { xs: '77px', sm: '140px', md: '230px', xl: 270 }, maxHeight: { xs: '77px', sm: '140px', md: '230px', xl: 300 }, width: '100%', py: '10px', px: '10px',
+                                            minWidth: { xs: '77px', sm: '140px', md: '230px', xl: 270 }, minHeight: { xs: '77px', sm: '140px', md: '230px', xl: 300 }, background: 'rgba(16, 16, 16, 0.1)', borderRadius: '16px', height: '100%', ":hover": {
+                                                transform: 'scale(1.1)'
+                                            }, transition: 'transform 0.5s'
+                                        }}>
+                                            <Box sx={{ display: 'flex', justifyContent: 'center', height: '100%', width: '100%' }}>
+                                                <Box sx={{ display: 'flex', gap: '20px', flexDirection: 'column', justifyContent: 'space-between', height: '100%', width: '100%' }}>
+                                                    <Box sx={{ width: '100%', objectFit: 'contain', maxHeight: '60%' }} component={'img'} src={data.image} />
+                                                    <Typography sx={{ fontWeight: 600, fontSize: { xs: '10px', md: '27px', xl: '32px', sm: '15px' }, fontFamily: 'Axiforma', color: 'black', textAlign: 'center' }}>{data.category_name}</Typography>
                                                 </Box>
-                                            </Card>
-                                        </Box>
+                                            </Box>
+                                        </Card>
                                     </Link>
                                 )
                             }) : ''}
