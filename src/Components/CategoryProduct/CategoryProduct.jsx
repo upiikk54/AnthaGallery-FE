@@ -9,36 +9,34 @@ import axios from 'axios';
 function CategoryProduct() {
     const dispatch = useDispatch();
     const [product, setProduct] = React.useState([]);
-    const [nameProduct, setNameProduct] = React.useState("");
-    const [priceProduct, setProductPrice] = React.useState("");
-
-    const handleChangePrice = (e) => {
-        setProductPrice(e.target.value);
-    };
-
-    const handleChangeNameProduct = (e) => {
-        setNameProduct(e.target.value);
-    };
+    const [searchData, setSearchData] = React.useState('');
 
     const dataCategories = useSelector(state => state.user.getDataCategories)
 
-    const nameProducts = nameProduct ? `product_name=${nameProduct}` : ""
-    const productPrices = priceProduct ? `&product_price=${priceProduct}` : ""
-
     const getProduct = async () => {
-        try {
-            const dataProduct = await axios.get(
-                `https://anthagallerybe-server.up.railway.app/api/v1/product/read?${nameProducts}${productPrices}`
-            )
-
-            const payloadData = await dataProduct.data.data.get_all_product;
-            console.log(payloadData);
-            setProduct(payloadData)
-        } catch (err) {
-            console.log(err);
+        const cek = /\d/.test(searchData)
+        if (cek) {
+            try {
+                const dataProduct = await axios.get(
+                    `https://anthagallerybe-server.up.railway.app/api/v1/product/read?product_price=${searchData}`
+                )
+                const payloadData = await dataProduct.data.data.get_all_product;
+                setProduct(payloadData)
+            } catch (err) {
+                console.log(err);
+            }
+        } else {
+            try {
+                const dataProduct = await axios.get(
+                    `https://anthagallerybe-server.up.railway.app/api/v1/product/read?product_name=${searchData}`
+                )
+                const payloadData = await dataProduct.data.data.get_all_product;
+                setProduct(payloadData)
+            } catch (err) {
+                console.log(err);
+            }
         }
     }
-    console.log(product);
 
     React.useEffect(() => {
         dispatch(getAllCategories())
@@ -69,8 +67,7 @@ function CategoryProduct() {
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', maxWidth: '1440px', alignItems: 'center' }}>
                             <Box sx={{ display: 'flex', gap: '10px' }}>
                                 <Typography sx={{ fontWeight: 600, fontSize: { xs: '15px', sm: '17px', md: '33px', xl: '38px' }, fontFamily: 'Axiforma' }}>Explore Category</Typography>
-                                <TextField onChange={handleChangeNameProduct} id="outlined-basic" label="Nama Produk" variant="outlined" sx={{ maxWidth: '115px' }} />
-                                <TextField onChange={handleChangePrice} id="outlined-basic" label="Harga" variant="outlined" type='number' sx={{ maxWidth: '115px' }} />
+                                <TextField onChange={(e) => setSearchData(e.target.value)} id="outlined-basic" label="Search" variant="outlined" sx={{ maxWidth: '115px' }} />
                                 <Button onClick={getProduct} variant='contained' sx={{
                                     width: '199px', backgroundColor: '#317276', fontFamily: 'Axiforma', ":hover": {
                                         bgcolor: "#317276"
