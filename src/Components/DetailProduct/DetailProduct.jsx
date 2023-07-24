@@ -111,7 +111,7 @@ function DetailProduct() {
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '32px', sm: '40px', md: '127px', xl: '122px' } }}>
                             <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '8px', sm: '10px', md: '28px' } }}>
                                 <Box sx={{ display: 'flex', backgroundColor: '#E1E6E1', width: '170px', height: { xs: '29px', sm: '29px', md: '36px', xl: '46px' }, alignItems: 'center', justifyContent: 'center', borderRadius: '8px' }}>
-                                    <Typography sx={{ fontWeight: 500, fontSize: { xs: '13px', sm: '13px', md: '15px' }, color: 'black', fontFamily: 'Axiforma', lineHeight: '120%' }}>Backpack Details</Typography>
+                                    <Typography sx={{ fontWeight: 500, fontSize: { xs: '13px', sm: '13px', md: '15px' }, color: 'black', fontFamily: 'Axiforma', lineHeight: '120%' }}>Details</Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '7px', sm: '16px' } }}>
                                     <Typography sx={{ fontWeight: 600, fontSize: { sm: '14px', md: '23px', xl: '38px' }, fontFamily: 'Axiforma' }}>{dataProduct.product_name}</Typography>

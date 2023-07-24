@@ -68,6 +68,8 @@ function Navbar() {
         passwordValueLogin: '',
     })
 
+
+
     const handleChangeLogin = (prop) => (event) => {
         setLoginValue({ ...loginValue, [prop]: event.target.value });
     };
@@ -107,6 +109,10 @@ function Navbar() {
         localStorage.removeItem("token");
         window.location.reload()
     };
+    const handleOpenModalsForgotPassword = () => {
+        handleCloseLogin()
+        handleOpenForgotPassword()
+    }
 
     React.useEffect(() => {
         dispatch(getUsers())
@@ -184,6 +190,84 @@ function Navbar() {
             </List>
         </Box>
     );
+
+    const [openForgotPassword, setOpenForgotPassword] = React.useState(false);
+    const handleOpenForgotPassword = () => setOpenForgotPassword(true);
+    const handleCloseForgotPassword = () => setOpenForgotPassword(false);
+
+    const [openResetPassword, setOpenResetPassword] = React.useState(false);
+    const handleOpenResetPassword = () => setOpenResetPassword(true);
+    const handleCloseResetPassword = () => setOpenResetPassword(false);
+
+    const [forgotPasswordvalue, setForgotPasswordvalue] = React.useState({
+        emailValueFP: '',
+    })
+
+    const handleChangeFP = (prop) => (event) => {
+        setForgotPasswordvalue({ ...forgotPasswordvalue, [prop]: event.target.value });
+    };
+
+    
+
+    const handleForgotPassword = async (e) => {
+        e.preventDefault();
+
+        try {
+            const userLupaPasswordPayload = {
+                email: forgotPasswordvalue.emailValueFP,
+            }
+
+            const FpRequest = await axios.put(
+                "https://anthagallerybe-server.up.railway.app/api/v1/forgotPassword",
+                userLupaPasswordPayload
+            )
+            const FpResponse = FpRequest.data;
+
+            if (FpResponse.status) {
+                handleCloseForgotPassword()
+                enqueueSnackbar(`${FpResponse.message}`, { variant: 'success', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 3000 });
+                handleOpenResetPassword()
+            }
+        } catch (err) {
+            const response = err.response.data;
+            enqueueSnackbar(`${response.message}`, { variant: 'error', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 3000 });
+        }
+    };
+
+    const [resetPasswordValue, setResetPasswordValue] = React.useState({
+        otpValueRP: '',
+        passwordValueRP: '',
+    })
+
+    const handleChangeRP = (prop) => (event) => {
+        setResetPasswordValue({ ...resetPasswordValue, [prop]: event.target.value });
+    };
+
+    const handleResetPassword = async (e) => {
+        e.preventDefault();
+
+        try {
+            const userResetPasswordPayload = {
+                otp: resetPasswordValue.otpValueRP,
+                password: resetPasswordValue.passwordValueRP,
+            }
+
+            const FpRequest = await axios.put(
+                "https://anthagallerybe-server.up.railway.app/api/v1/resetPassword",
+                userResetPasswordPayload
+            )
+            const FpResponse = FpRequest.data;
+
+            if (FpResponse.status) {
+                handleCloseResetPassword()
+                enqueueSnackbar(`${FpResponse.message}`, { variant: 'success', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 3000 });
+                handleOpenLogin()
+            }
+        } catch (err) {
+            const response = err.response.data;
+            enqueueSnackbar(`${response.message}`, { variant: 'error', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 3000 });
+        }
+    };
 
     return (
         <>
@@ -286,28 +370,31 @@ function Navbar() {
                                 label="Email"
                                 id="fullWidth"
                             />
-                            <TextField
-                                onChange={handleChangeLogin('passwordValueLogin')}
-                                fullWidth
-                                required
-                                id="standard-adornment-password"
-                                placeholder='password'
-                                type={showPassword ? 'text' : 'password'}
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={handleClickShowPassword}
-                                                onMouseDown={handleMouseDownPassword}
-                                                edge="end"
-                                            >
-                                                {showPassword ? <VisibilityOff /> : <Visibility />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    ),
-                                }}
-                            />
+                            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                <TextField
+                                    onChange={handleChangeLogin('passwordValueLogin')}
+                                    fullWidth
+                                    required
+                                    id="standard-adornment-password"
+                                    placeholder='password'
+                                    type={showPassword ? 'text' : 'password'}
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onClick={handleClickShowPassword}
+                                                    onMouseDown={handleMouseDownPassword}
+                                                    edge="end"
+                                                >
+                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                                <Typography onClick={handleOpenModalsForgotPassword} sx={{ textDecoration: 'underline', '&:hover': { color: 'blue', cursor: 'pointer' }, width: '113px' }}>Lupa Password</Typography>
+                            </Box>
                         </Box>
                         <Button
                             onClick={handleLogin}
@@ -315,6 +402,124 @@ function Navbar() {
                             sx={{
                                 height: '56px', backgroundColor: '#2563EB', fontFamily: 'Axiforma', fontSize: '20px'
                             }}>Masuk</Button>
+                    </Box>
+                </Box>
+            </Modal>
+
+            {/* Modals Email FP */}
+            <Modal
+                open={openForgotPassword}
+                onClose={handleCloseForgotPassword}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: { xl: 684, md: '450px', sm: '400px', xs: '100%' },
+                    height: { xs: '100%', sm: 'unset' },
+                    bgcolor: 'background.paper',
+                    boxShadow: 24,
+                    borderRadius: 10,
+                    p: 4,
+                }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xl: '45px', md: '30px', sm: '25px', xs: '30px' }, pt: { xs: '65px', sm: 'unset' } }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xl: '45px', md: '30px', sm: '25px', xs: '35px' } }}>
+                            <Box sx={{ display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                                <Box sx={{ maxWidth: { xl: '192px', md: '150px', sm: '140px', xs: '180px' }, width: '100%', borderRadius: '50%' }} component={'img'} src={Logo} />
+                            </Box>
+                            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px', justifyContent: 'center', alignItems: 'center' }}>
+                                <Typography sx={{ color: 'black', fontSize: { xl: '36px', md: '25px', sm: '20px', xs: '25px' }, fontWeight: 600, fontFamily: 'Axiforma' }}>Antha Gallery</Typography>
+                                <Typography sx={{ color: '#6D7280', fontSize: { xl: '20px', md: '15px', sm: '15px', xs: '15px' }, fontWeight: 400, fontFamily: 'Axiforma' }}>Selamat datang! Silakan masukkan email akun anda untuk mengirim kode OTP lupa password.</Typography>
+                            </Box>
+                        </Box>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xl: '38px', md: '15px', sm: '13px', xs: '16px' } }}>
+                            <TextField
+                                onChange={handleChangeFP('emailValueFP')}
+                                fullWidth
+                                label="Email"
+                                id="fullWidth"
+                            />
+                        </Box>
+                        <Button
+                            onClick={handleForgotPassword}
+                            variant='contained'
+                            sx={{
+                                height: '56px', backgroundColor: '#2563EB', fontFamily: 'Axiforma', fontSize: '20px'
+                            }}>Kirim</Button>
+                    </Box>
+                </Box>
+            </Modal>
+
+            {/* Modals  OTP and Password FP*/}
+            <Modal
+                open={openResetPassword}
+                onClose={handleCloseResetPassword}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: { xl: 684, md: '450px', sm: '400px', xs: '100%' },
+                    height: { xs: '100%', sm: 'unset' },
+                    bgcolor: 'background.paper',
+                    boxShadow: 24,
+                    borderRadius: 10,
+                    p: 4,
+                }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xl: '45px', md: '30px', sm: '25px', xs: '30px' }, pt: { xs: '65px', sm: 'unset' } }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xl: '45px', md: '30px', sm: '25px', xs: '35px' } }}>
+                            <Box sx={{ display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                                <Box sx={{ maxWidth: { xl: '192px', md: '150px', sm: '140px', xs: '180px' }, width: '100%', borderRadius: '50%' }} component={'img'} src={Logo} />
+                            </Box>
+                            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px', justifyContent: 'center', alignItems: 'center' }}>
+                                <Typography sx={{ color: 'black', fontSize: { xl: '36px', md: '25px', sm: '20px', xs: '25px' }, fontWeight: 600, fontFamily: 'Axiforma' }}>Antha Gallery</Typography>
+                                <Typography sx={{ color: '#6D7280', fontSize: { xl: '20px', md: '15px', sm: '15px', xs: '15px' }, fontWeight: 400, fontFamily: 'Axiforma' }}>Selamat datang! Silakan masukkan password baru anda dan kode OTP yang telah dikirim melalui email anda.</Typography>
+                            </Box>
+                        </Box>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xl: '38px', md: '15px', sm: '13px', xs: '16px' } }}>
+                            <TextField
+                                onChange={handleChangeRP('otpValueRP')}
+                                fullWidth
+                                label="OTP"
+                                id="fullWidth"
+                            />
+                            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                <TextField
+                                    onChange={handleChangeRP('passwordValueRP')}
+                                    fullWidth
+                                    required
+                                    id="standard-adornment-password"
+                                    placeholder='password'
+                                    type={showPassword ? 'text' : 'password'}
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onClick={handleClickShowPassword}
+                                                    onMouseDown={handleMouseDownPassword}
+                                                    edge="end"
+                                                >
+                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                            </Box>
+                        </Box>
+                        <Button
+                            onClick={handleResetPassword}
+                            variant='contained'
+                            sx={{
+                                height: '56px', backgroundColor: '#2563EB', fontFamily: 'Axiforma', fontSize: '20px'
+                            }}>Kirim</Button>
                     </Box>
                 </Box>
             </Modal>

@@ -1,14 +1,45 @@
-import { Box, Card, Typography } from '@mui/material'
+import { Box, Button, Card, TextField, Typography } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCategories } from '../../Redux/slices/UserReducer';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
 function CategoryProduct() {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const [product, setProduct] = React.useState([]);
+    const [nameProduct, setNameProduct] = React.useState("");
+    const [priceProduct, setProductPrice] = React.useState("");
+
+    const handleChangePrice = (e) => {
+        setProductPrice(e.target.value);
+    };
+
+    const handleChangeNameProduct = (e) => {
+        setNameProduct(e.target.value);
+    };
 
     const dataCategories = useSelector(state => state.user.getDataCategories)
+
+    const nameProducts = nameProduct ? `product_name=${nameProduct}` : ""
+    const productPrices = priceProduct ? `&product_price=${priceProduct}` : ""
+
+    const getProduct = async () => {
+        try {
+            const dataProduct = await axios.get(
+                `https://anthagallerybe-server.up.railway.app/api/v1/product/read?${nameProducts}${productPrices}`
+            )
+
+            const payloadData = await dataProduct.data.data.get_all_product;
+            console.log(payloadData);
+            setProduct(payloadData)
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    console.log(product);
+
     React.useEffect(() => {
         dispatch(getAllCategories())
     }, [])
@@ -22,6 +53,7 @@ function CategoryProduct() {
     const handleBackShow = () => {
         setShowAll(false);
     };
+
     return (
         <>
             <Box sx={{
@@ -35,13 +67,42 @@ function CategoryProduct() {
                 }}>
                     <Box>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', maxWidth: '1440px', alignItems: 'center' }}>
-                            <Typography sx={{ fontWeight: 600, fontSize: { xs: '15px', sm: '17px', md: '33px', xl: '38px' }, fontFamily: 'Axiforma' }}>Explore Category</Typography>
+                            <Box sx={{ display: 'flex', gap: '10px' }}>
+                                <Typography sx={{ fontWeight: 600, fontSize: { xs: '15px', sm: '17px', md: '33px', xl: '38px' }, fontFamily: 'Axiforma' }}>Explore Category</Typography>
+                                <TextField onChange={handleChangeNameProduct} id="outlined-basic" label="Nama Produk" variant="outlined" sx={{ maxWidth: '115px' }} />
+                                <TextField onChange={handleChangePrice} id="outlined-basic" label="Harga" variant="outlined" type='number' sx={{ maxWidth: '115px' }} />
+                                <Button onClick={getProduct} variant='contained' sx={{
+                                    width: '199px', backgroundColor: '#317276', fontFamily: 'Axiforma', ":hover": {
+                                        bgcolor: "#317276"
+                                    }
+                                }}>Cari</Button>
+                            </Box>
                             {!showAll ?
                                 <Typography sx={{ fontWeight: 600, fontSize: { xs: '10px', sm: '12px', md: '12px', xl: '16px' }, fontFamily: 'Axiforma', cursor: 'pointer' }} onClick={handleShowAll}>See All</Typography>
                                 :
                                 <Typography sx={{ fontWeight: 600, fontSize: { xs: '10px', md: '12px', xl: '16px' }, fontFamily: 'Axiforma', cursor: 'pointer' }} onClick={handleBackShow}>Back</Typography>
                             }
                         </Box>
+                    </Box>
+                    <Box sx={{ display: 'flex', gap: { xs: '13px', sm: '20px' }, mt: { xs: '30px', sm: '40px', md: '45px' }, flexWrap: 'wrap', width: '100%', maxWidth: '1440px' }}>
+                        {product !== null && Object.keys(product).length !== 0 ? product.map((data, index) => {
+                            const currencyCost = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(data.product_price);
+                            return (
+                                <Link to={`/detail-product/${data._id}`} style={{ textDecoration: "none", color: "black" }}>
+                                    <Box sx={{ display: 'flex', flexDirection: 'column' }} key={index}>
+                                        <Card sx={{ maxWidth: { xs: '128px', sm: '148px', md: '230px', xl: 270 }, backgroundColor: '#E1E6E1', borderRadius: '16px', height: { xs: '145px', sm: '169px', md: '215px', xl: 260 }, }}>
+                                            <Box sx={{ display: 'flex', justifyContent: 'center', }}>
+                                                <Box sx={{ maxWidth: { xs: '85px', sm: '103px', md: '140px', xl: '167px' }, width: '100%', height: { xs: '113px', sm: '134px', md: '184px', xl: '234px' }, pt: '15px' }} component={'img'} src={data.image[0]} />
+                                            </Box>
+                                        </Card>
+                                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: { sm: '5px', md: '12px' }, maxWidth: { md: '270px', xs: '128px', sm: '148px', } }}>
+                                            <Typography sx={{ fontWeight: 600, fontSize: { xs: '12px', sm: '14px', md: '19px', xl: '24px' }, fontFamily: 'Axiforma', color: 'black', pt: { xs: '8px', sm: '20px' } }}>{data.product_name} </Typography>
+                                            <Typography sx={{ fontWeight: 500, fontSize: { xs: '8px', sm: '12px', md: '17px', xl: '22px' }, fontFamily: 'Axiforma', color: 'black' }}>{currencyCost} </Typography>
+                                        </Box>
+                                    </Box>
+                                </Link>
+                            )
+                        }) : ''}
                     </Box>
                     <Box sx={{ display: 'flex', gap: { xs: '13px', sm: '20px' }, mt: { xs: '30px', sm: '40px', md: '45px' }, flexWrap: 'wrap', width: '100%', maxWidth: '1440px' }}>
                         {showAll ?

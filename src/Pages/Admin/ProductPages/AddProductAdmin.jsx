@@ -179,7 +179,7 @@ function AddProductAdmin() {
                                         <div>
                                             {thumbs}
                                         </div>}
-                                    {rejected[0] && enqueueSnackbar('Gambar Maksimal 1', { variant: 'error', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 3000 })}
+                                    {rejected[0] && enqueueSnackbar('Gambar Maksimal 5', { variant: 'error', anchorOrigin: { vertical: 'top', horizontal: 'center' }, autoHideDuration: 3000 })}
                                 </div>
                             </section>
                         </Box>
