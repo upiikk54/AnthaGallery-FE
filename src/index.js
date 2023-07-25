@@ -18,6 +18,9 @@ import store from './Redux/store';
 import { SnackbarProvider } from 'notistack';
 import ArchivesPageAdmin from './Pages/Admin/ArchivesPages/ArchivesPageAdmin';
 import HistoryChatPage from './Pages/Admin/HistoryChatUsersPages/HistoryChatPage';
+import SaleTransactionAdmin from './Pages/Admin/SaleTransactionPages.jsx/SaleTransactionAdmin';
+import AddSaleTransactionAdmin from './Pages/Admin/SaleTransactionPages.jsx/AddSaleTransactionAdmin';
+import DetailSaleTransactionAdmin from './Pages/Admin/SaleTransactionPages.jsx/DetailSaleTransactionAdmin';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -33,10 +36,12 @@ root.render(
               <Route path="/admin/product" element={<ProductAdmin />} />
               <Route path="/admin/archives" element={<ArchivesPageAdmin />} />
               <Route path="/admin/history-chat" element={<HistoryChatPage />} />
+              <Route path="/admin/sale-transaction" element={<SaleTransactionAdmin />} />
               <Route path="/admin/dashboard/add-category" element={<AddCategoryAdmin />} />
               <Route path="/admin/dashboard/update-category/:id" element={<UpdateCategoryAdmin />} />
               <Route path="/admin/product/add-product" element={<AddProductAdmin />} />
-              <Route path="/admin/product/update-product/:id" element={<UpdateProductAdmin />} />
+              <Route path="/admin/sale-transaction/add-saleTransaction" element={<AddSaleTransactionAdmin />} />
+              <Route path="/admin/sale-transaction/detail-saleTransaction/:id" element={<DetailSaleTransactionAdmin />} />
             </Routes>
         </ThemeProvider>
       </SnackbarProvider>

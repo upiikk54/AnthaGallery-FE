@@ -7,6 +7,53 @@ import axios from "axios";
 // const local_url = "https://anthagallery.site";
 const local_url = "https://anthagallerybe-server.up.railway.app";
 
+// Create Sale Transaction
+export const createSaleTransaction = createAsyncThunk(
+    'admin/createSaleTransaction',
+    async (sale) => {
+        try {
+            const token = localStorage.getItem("token")
+            const response = await axios({
+                method: "POST",
+                data: sale,
+                url: `${local_url}/api/v1/saleTransaction/create`,
+                headers: {
+                    Accept: "application/json",
+                    "Content-type": "application/json",
+                    "Access-Control-Allow-Credentials": true,
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            return response.data;
+        } catch (error) {
+            return error.response.data
+        }
+    }
+);
+
+// get sale transaction by id
+export const getSaleTransactionById = createAsyncThunk(
+    'admin/getSaleTransactionById',
+    async (id) => {
+        try {
+            const token = localStorage.getItem("token")
+            const response = await axios({
+                method: "GET",
+                url: `${local_url}/api/v1/saleTransaction/read/${id}`,
+                headers: {
+                    Accept: "application/json",
+                    "Content-type": "application/json",
+                    "Access-Control-Allow-Credentials": true,
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            return response.data;
+        } catch (error) {
+            return error.response.data
+        }
+    }
+);
+
 // Get all product
 export const getAllProducts = createAsyncThunk(
     'admin/getAllProducts',
@@ -141,6 +188,27 @@ export const getAllHistoryChat = createAsyncThunk(
     }
 );
 
+// Get all Sale Transaction
+export const getAllSaleTransaction = createAsyncThunk(
+    'admin/getAllSaleTransaction',
+    async () => {
+        try {
+            const response = await axios({
+                method: "GET",
+                url: `${local_url}/api/v1/saleTransaction/read`,
+                headers: {
+                    Accept: "application/json",
+                    "Content-type": "application/json",
+                    "Access-Control-Allow-Credentials": true,
+                }
+            })
+            return response.data;
+        } catch (error) {
+            return error.response.data
+        }
+    }
+);
+
 const initialState = {
     getDataHistoryChat: {},
     getDataProducts: {},
@@ -148,6 +216,8 @@ const initialState = {
     getDataProductDelete: {},
     getDataProductSingle: {},
     getDataCategorySingle: {},
+    getDataSaleTransaction: {},
+    getDataSaleTransactionSingle: {},
 }
 
 const userSlice = createSlice({
@@ -258,6 +328,59 @@ const userSlice = createSlice({
             }
         },
         [getAllHistoryChat.rejected]: (state, action) => {
+            return {
+                ...state
+            }
+        },
+
+        // Get All Sale Transaction
+        [getAllSaleTransaction.pending]: (state, action) => {
+            return {
+                ...state
+            }
+        },
+        [getAllSaleTransaction.fulfilled]: (state, action) => {
+            return {
+                ...state,
+                getDataSaleTransaction: action.payload.data.get_all_sale_transaction
+            }
+        },
+        [getAllSaleTransaction.rejected]: (state, action) => {
+            return {
+                ...state
+            }
+        },
+
+        // Create Sale Transaction
+        [createSaleTransaction.pending]: (state, action) => {
+            return {
+                ...state
+            }
+        },
+        [createSaleTransaction.fulfilled]: (state, action) => {
+            return {
+                ...state
+            }
+        },
+        [createSaleTransaction.rejected]: (state, action) => {
+            return {
+                ...state
+            }
+        },
+
+        // Get product by id
+        [getSaleTransactionById.pending]: (state, action) => {
+            return {
+                ...state
+            }
+        },
+        [getSaleTransactionById.fulfilled]: (state, action) => {
+            return {
+                ...state,
+                getDataSaleTransactionSingle: action.payload.data.get_sale_transaction_By_Id
+            }
+        },
+        [getSaleTransactionById.rejected]: (state, action) => {
             return {
                 ...state
             }

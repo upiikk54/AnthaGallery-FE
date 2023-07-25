@@ -93,6 +93,7 @@ function UpdateProductAdmin() {
     const [productValue, setProductValue] = React.useState({
         productNameValue: '',
         productPriceValue: '',
+        productStockValue: '',
         productDescription: '',
     })
     React.useEffect(() => {
@@ -102,6 +103,7 @@ function UpdateProductAdmin() {
                     ...productValue,
                     productNameValue: res.payload.data.get_product_By_Id.product_name,
                     productPriceValue: res.payload.data.get_product_By_Id.product_price,
+                    productStockValue: res.payload.data.get_product_By_Id.stock_product,
                     productDescription: res.payload.data.get_product_By_Id.product_description,
                 })
             }
@@ -121,6 +123,7 @@ function UpdateProductAdmin() {
             postPayload.append("category_id", categoryId);
             postPayload.append("product_name", productValue.productNameValue);
             postPayload.append("product_price", productValue.productPriceValue);
+            postPayload.append("stock_product", productValue.productStockValue);
             postPayload.append("product_description", productValue.productDescription);
             files.forEach(element => {
                 postPayload.append("image", element);
@@ -172,6 +175,18 @@ function UpdateProductAdmin() {
                                 onChange={handleChange('productPriceValue')}
                                 type="number"
                                 value={productValue.productPriceValue}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                        </Box>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px', px: '36px', width: '100%', maxWidth: '1440px', }}>
+                            <Typography sx={{ fontSize: '18px', fontWeight: 400, fontFamily: 'Axiforma' }}>Stock</Typography>
+                            <TextField
+                                id="outlined-number"
+                                onChange={handleChange('productStockValue')}
+                                type="number"
+                                value={productValue.productStockValue}
                                 InputLabelProps={{
                                     shrink: true,
                                 }}

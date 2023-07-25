@@ -18,6 +18,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
+import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import CategoryIcon from '@mui/icons-material/Category';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
@@ -106,6 +107,10 @@ const Dashboard = (props) => {
             name: 'History Chat',
             link: '/admin/history-chat'
         },
+        {
+            name: 'Penjualan',
+            link: '/admin/sale-transaction'
+        },
     ]
     const location = useLocation().pathname
     const onClickMenu = menus.filter((data) => location.includes(data.link))
@@ -186,7 +191,7 @@ const Dashboard = (props) => {
                     <List sx={{ py: 0 }} >
                         {menus.map((text, index) => {
                             return (
-                                <Link key={index} to={text.name === 'Kategori' ? text.link : text.name === 'Produk' ? text.link : text.name === 'Arsip Produk' ? text.link : text.name === 'History Chat' ? text.link : ''} style={{ textDecoration: 'none', color: onClickMenu[0].name === text.name ? 'white' : 'rgba(255, 255, 255, 0.5)' }}>
+                                <Link key={index} to={text.name === 'Kategori' ? text.link : text.name === 'Produk' ? text.link : text.name === 'Arsip Produk' ? text.link : text.name === 'History Chat' ? text.link : text.name === 'Penjualan' ? text.link : ''} style={{ textDecoration: 'none', color: onClickMenu[0].name === text.name ? 'white' : 'rgba(255, 255, 255, 0.5)' }}>
                                     <ListItem disablePadding>
                                         <ListItemButton sx={{ position: 'relative' }} >
                                             <Box sx={{ display: onClickMenu[0].name === text.name ? 'block' : 'none', backgroundColor: 'white', width: '5px', height: '24px', borderRadius: '0px 8px 8px 0px', position: 'absolute', left: 0 }} />
@@ -194,7 +199,8 @@ const Dashboard = (props) => {
                                                 {text.name === 'Kategori' ? onClickMenu[0].name === text.name ? <CategoryIcon sx={{ color: 'white' }} /> : <CategoryOutlinedIcon />
                                                     : text.name === 'Produk' ? onClickMenu[0].name === text.name ? <Inventory2Icon sx={{ color: 'white' }} /> : <Inventory2OutlinedIcon sx={{ color: onClickMenu[0].name === text.name && 'white' }} />
                                                         : text.name === 'Arsip Produk' ? onClickMenu[0].name === text.name ? <StorageIcon sx={{ color: 'white' }} /> : <StorageOutlinedIcon sx={{ color: onClickMenu[0].name === text.name && 'white' }} />
-                                                            : text.name === 'History Chat' ? onClickMenu[0].name === text.name ? <WhatsAppIcon sx={{ color: 'white' }} /> : <WhatsAppIcon sx={{ color: onClickMenu[0].name === text.name && 'white' }} /> : ''}
+                                                            : text.name === 'History Chat' ? onClickMenu[0].name === text.name ? <WhatsAppIcon sx={{ color: 'white' }} /> : <WhatsAppIcon sx={{ color: onClickMenu[0].name === text.name && 'white' }} />
+                                                                : text.name === 'Penjualan' ? onClickMenu[0].name === text.name ? <PointOfSaleIcon sx={{ color: 'white' }} /> : <PointOfSaleIcon sx={{ color: onClickMenu[0].name === text.name && 'white' }} /> : ''}
                                             </ListItemIcon>
                                             <ListItemText primary={text.name} />
                                         </ListItemButton>

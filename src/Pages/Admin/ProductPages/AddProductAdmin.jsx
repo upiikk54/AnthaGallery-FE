@@ -90,6 +90,7 @@ function AddProductAdmin() {
 
 
     const productNameValue = React.useRef("");
+    const productStockValue = React.useRef();
     const productPriceValue = React.useRef();
     const productDescriptionValue = React.useRef("");
     const [categoryId, setCategoryId] = React.useState()
@@ -103,6 +104,7 @@ function AddProductAdmin() {
             postPayload.append("category_id", categoryId);
             postPayload.append("product_name", productNameValue.current.value);
             postPayload.append("product_price", productPriceValue.current.value);
+            postPayload.append("stock_product", productStockValue.current.value);
             postPayload.append("product_description", productDescriptionValue.current.value);
             postPayload.append("archives", archives);
             files.forEach(element => {
@@ -150,6 +152,17 @@ function AddProductAdmin() {
                                 id="outlined-number"
                                 type="number"
                                 inputRef={productPriceValue}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                        </Box>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px', px: '36px', width: '100%', maxWidth: '1440px', }}>
+                            <Typography sx={{ fontSize: '18px', fontWeight: 400, fontFamily: 'Axiforma' }}>Stock</Typography>
+                            <TextField
+                                id="outlined-number"
+                                type="number"
+                                inputRef={productStockValue}
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
